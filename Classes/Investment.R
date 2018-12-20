@@ -7,16 +7,20 @@ Investment <- R6Class(
   "Investement",
   public = list(
     #Constructor
-    initialize = function(investment_quantity, investment_date)
+    initialize = function(investment_asset,investment_quantity,portfolio_broker, investment_date)
     {
+      private$investment_asset = investment_asset
+      
       private$investment_quantity = investment_quantity
       private$investment_date = investment_date
-      
-      private$investment_cost = NA
-      private$investment_price = NA
+      private$investment_cost = portfolio_broker$broker_comp_fees(investment_quantity,investment_asset$get_asset_cost()) +  private$investment_quantity*investment_asset$get_asset_cost() 
+      private$investment_price = portfolio_broker$broker_comp_fees(investment_quantity,investment_asset$get_asset_price()) +  private$investment_quantity*investment_asset$get_asset_price()
     },
     
     #ACCESSEUR
+    get_investment_asset = function() {
+      return(private$investment_asset)
+    },
     get_investment_quantity = function() {
       return(private$investment_quantity)
     },
@@ -28,6 +32,9 @@ Investment <- R6Class(
     },
     get_investment_price = function() {
       return(private$investment_price)
+    },
+    set_investment_asset = function(investment_asset) {
+      private$investment_quantity = investment_asset
     },
     set_investment_quantity = function(investment_quantity) {
       private$investment_quantity = investment_quantity
@@ -45,10 +52,13 @@ Investment <- R6Class(
   #membres privé
   private = list(
     #champs
+    investment_asset = NA,
+    
     investment_quantity = NA,
     investment_date = NA,
     investment_cost = NA,
     investment_price = NA
+    
   )
   
 )
