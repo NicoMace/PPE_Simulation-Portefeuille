@@ -64,7 +64,7 @@ init_stocks = function()
   {
     assign(noquote(colnames(d_historique)[j]),
       Stock$new(colnames(d_historique)[j],d_historique[1, j],
-                d_historique[1, length(d_historique[, 1])],
+                d_historique[ length(d_historique[, 1]),j],
         "CODE","€",0))
     L_stocks= c(L_stocks,get(noquote(colnames(d_historique)[j])))
   }

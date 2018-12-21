@@ -16,7 +16,6 @@ Investment <- R6Class(
       private$investment_cost = portfolio_broker$broker_comp_fees(investment_quantity,investment_asset$get_asset_cost()) +  private$investment_quantity*investment_asset$get_asset_cost() 
       private$investment_price = portfolio_broker$broker_comp_fees(investment_quantity,investment_asset$get_asset_price()) +  private$investment_quantity*investment_asset$get_asset_price()
     },
-    
     #ACCESSEUR
     get_investment_asset = function() {
       return(private$investment_asset)
