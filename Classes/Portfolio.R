@@ -7,13 +7,13 @@ Portefeuille <- R6Class(
   "Portefeuille",
   public = list(
     #Constructor
-    initialize = function(ptf_broker,ptf_list_investments,ptf_expected_return, ptf_expected_risk)
+    initialize = function(ptf_broker,ptf_expected_return, ptf_expected_risk)
     {
       private$ptf_broker= ptf_broker
       private$ptf_expected_return = ptf_expected_return
       private$ptf_expected_risk = ptf_expected_risk
       
-      private$ptf_list_investments= ptf_list_investments
+      
       
       private$ptf_real_return = NA
       private$ptf_real_risk = NA

@@ -1,35 +1,35 @@
 
 
-f_nb_actions_objectif = function(objectif,stock_price)
+S_EC_comp_investment_quantity_treshold= function(treshold,investment)
 {
-  nb_action_inf=objectif%/%stock_price
-  nb_action_sup=nb_action_inf+1
+  investment_quantity_inf=treshold%/%investment$get_asset_price()
+  investment_quantity_sup=investment_quantity_inf+1
   
-  if (objectif-nb_action_inf*stock_price< nb_action_sup*stock_price-objectif)
+  if (treshold-investment_quantity_inf*investment$get_asset_price()< investment_quantity_sup*investment$get_asset_price()-treshold)
   {
-    return(nb_action_inf)
+    return(investment_quantity_inf)
   }
   else
   {
-    return(nb_action_sup)
+    return(investment_quantity_sup)
   }
 }
 
-f_equilibrage=function(m_frais_broker,broker,objectif,stock_price,nb_action_actuel,cash)
+f_equilibrage=function(broker,investment,cash,treshold)
 {
   delta_cash=0
-  nb_action= nb_action_actuel
-  nb_action_objectif=f_nb_actions_objectif(objectif,stock_price)
-  variation=nb_action_objectif-nb_action_actuel
-  frais_de_courtage = phi(m_frais_broker,broker,abs(variation),stock_price)
-    if(!is.null(frais_de_courtage))
+  asset_quantity= investment$get_investment_quantity()
+  asset_quantity_treshold=S_EC_comp_investment_quantity_treshold(treshold,investment$get_investment_asset()$get_asset_price())
+  variation=asset_quantity_treshold-asset_quantity
+  broker_fees = broker$broker_comp_fees()
+    if(!is.null(broker_fees))
     {
       if(variation !=0)
       {
-        if (frais_de_courtage+ abs(variation)*stock_price<cash)
+        if (broker_fees+ abs(variation)*investment$get_asset_price()<cash)
         {
-          delta_cash= +frais_de_courtage+variation*stock_price
-          nb_action = nb_action_actuel+variation
+          delta_cash= variation*investment$get_asset_price()+broker_fees
+          asset_quantity = investment$get_investment_quantity()+variation
           
         }
       }
