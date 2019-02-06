@@ -17,7 +17,10 @@ class User:
         self.__user_risk = None
         
     def __repr__(self):
-        return '{user_lastname: '+self.__user_lastname+'user_firstname'', user_risk: '+str(self.__user_risk)+ '}'
+        return '{user_lastname: '+self.__user_lastname+\
+                ', user_firstname: '+\
+                self.__user_firstname+\
+                ', user_risk: '+str(self.__user_risk)+ '}'
         
 # ACCESSEURS        
     

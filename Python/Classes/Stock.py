@@ -5,23 +5,27 @@ Created on Wed Jan 16 15:54:22 2019
 
 @author: mithurangajendran
 """
-import Asset as A
+from Asset import Asset
 
 
-class Stock(A.Asset):
+class Stock(Asset):
     
-    __stock_ISIN = None
-    __stock_currency = None
+    #__stock_ISIN = None
+    #__stock_currency = None
    
     
     def __init__(self,asset_code,asset_cost,asset_price,stock_ISIN,stock_currency):
-        A.Asset.__init__(self,asset_cost,asset_price,asset_code)
-        self.__asset_code= asset_code
-        self.__asset_cost= asset_cost
-        self.__asset_price= asset_price
-        
+        Asset.__init__(self,asset_code,asset_cost,asset_price)
         self.__stock_ISIN = stock_ISIN
         self.__stock_currency = stock_currency
+
+    def __repr__(self):
+        return '{asset_code: '+self.get_asset_code()+\
+        ', asset_cost: '+str(self.get_asset_cost())+\
+        ', asset_price: '+str(self.get_asset_price())+\
+        ', stock_ISIN: '+str(self.__stock_ISIN)+\
+        ', stock_currency:'+str(self.__stock_currency)+'}'
+
         
        
 #ACCESSEURS

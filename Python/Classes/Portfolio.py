@@ -12,6 +12,7 @@ class Portfolio:
     #__ptf_expected_risk = None
     #__ptf_real_return = None
     #__ptf_real_risk = None
+    #__ptf_list_investments= list()
 
     ptf_list_investments = list()
     
@@ -22,6 +23,16 @@ class Portfolio:
       
       self.__ptf_real_return = None
       self.__ptf_real_risk = None
+      
+      self.__ptf_list_investments= list()
+      
+    def __repr__(self):
+        return '{ptf_broker: '+self.__ptf_broker+\
+        ', ptf_expected_return: '+str(self.__ptf_expected_return)+\
+        ', ptf_expected_risk: '+str(self.__ptf_expected_risk)+\
+        ', ptf_real_return: '+str(self.__ptf_real_return)+\
+        ', ptf_real_risk:'+str(self.__ptf_real_risk)+'}'
+  
 
 #ACCESSEURS
       
@@ -66,6 +77,6 @@ class Portfolio:
 #METHODES
       
     def add_ptf_investment(self,ptf_investment):
-      self.__ptf_list_investments= self.__ptf_list_investments.append(ptf_investment)
+      self.__ptf_list_investments.append(ptf_investment)
     
 

@@ -10,14 +10,20 @@ Created on Wed Jan 16 15:44:49 2019
 
 class Asset:
     
-    __asset_cost = None
-    __asset_price = None
-    __asset_code = None
+    #__asset_cost = None
+    #__asset_price = None
+    #__asset_code = None
     
-    def __init__(self,asset_cost,asset_price,asset_code):
+    def __init__(self,asset_code,asset_cost,asset_price):
+        self.__asset_code = asset_code 
         self.__asset_cost = asset_cost
         self.__asset_price = asset_price
-        self.__asset_code = asset_code      
+         
+    
+    def __repr__(self):
+        return '{asset_code: '+self.__asset_code +\
+        ', asset_cost: '+str(self.__asset_cost)+\
+        ', asset_price: '+str(self.__asset_price)+'}'    
 
 #ACCESSEURS
         

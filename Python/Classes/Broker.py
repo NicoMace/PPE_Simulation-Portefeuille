@@ -13,6 +13,10 @@ class Broker:
     def __init__(self,broker_name, broker_fees=None):
         self.__broker_name=broker_name
         self.__broker_fees = broker_fees
+
+    def __repr__(self):
+        return '{broker_name: '+self.__broker_name +\
+        ', broker_fees: '+str(self.__broker_fees)+'}'   
         
 #ACCESSEURS
         
