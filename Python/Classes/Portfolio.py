@@ -7,11 +7,11 @@ Created on Wed Jan 16 15:16:51 2019
 """
 class Portfolio:
     
-    __ptf_broker = None
-    __ptf_expected_return = None
-    __ptf_expected_risk = None
-    __ptf_real_return = None
-    __ptf_real_risk = None
+    #__ptf_broker = None
+    #__ptf_expected_return = None
+    #__ptf_expected_risk = None
+    #__ptf_real_return = None
+    #__ptf_real_risk = None
 
     ptf_list_investments = list()
     
