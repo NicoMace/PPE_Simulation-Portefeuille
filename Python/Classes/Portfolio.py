@@ -31,7 +31,8 @@ class Portfolio:
         ', ptf_expected_return: '+str(self.__ptf_expected_return)+\
         ', ptf_expected_risk: '+str(self.__ptf_expected_risk)+\
         ', ptf_real_return: '+str(self.__ptf_real_return)+\
-        ', ptf_real_risk:'+str(self.__ptf_real_risk)+'}'
+        ', ptf_real_risk:'+str(self.__ptf_real_risk)+\
+        ', ptf_list_investments: '+str(self.__ptf_list_investments)+'}'
   
 
 #ACCESSEURS
@@ -78,5 +79,13 @@ class Portfolio:
       
     def add_ptf_investment(self,ptf_investment):
       self.__ptf_list_investments.append(ptf_investment)
+      
+    def comp_ptf_line_cost(self,index):
+        return self.__ptf_list_investments[index].get_investment_cost()*\
+    self.__ptf_list_investments[index].get_investment_quantity()
+    
+    def comp_ptf_line_price(self, index):
+        return self.__ptf_list_investments[index].get_investment_quantity()*\
+    self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
     
 

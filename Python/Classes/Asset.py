@@ -14,21 +14,18 @@ class Asset:
     #__asset_price = None
     #__asset_code = None
     
-    def __init__(self,asset_code,asset_cost,asset_price):
+    def __init__(self,asset_code,asset_price):
         self.__asset_code = asset_code 
-        self.__asset_cost = asset_cost
         self.__asset_price = asset_price
          
     
     def __repr__(self):
         return '{asset_code: '+self.__asset_code +\
-        ', asset_cost: '+str(self.__asset_cost)+\
         ', asset_price: '+str(self.__asset_price)+'}'    
 
 #ACCESSEURS
         
-    def get_asset_cost(self):
-        return self.__asset_cost
+
     
     def get_asset_price(self):
         return self.__asset_price
@@ -36,9 +33,7 @@ class Asset:
     def get_asset_code(self):
         return self.__asset_code
     
-    
-    def set_asset_cost(self, asset_cost):
-        self.__asset_cost=asset_cost
+
         
     def set_asset_price(self,asset_price):
         self.__asset_price = asset_price

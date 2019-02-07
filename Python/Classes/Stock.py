@@ -14,14 +14,13 @@ class Stock(Asset):
     #__stock_currency = None
    
     
-    def __init__(self,asset_code,asset_cost,asset_price,stock_ISIN,stock_currency):
-        Asset.__init__(self,asset_code,asset_cost,asset_price)
+    def __init__(self,asset_code,asset_price,stock_ISIN,stock_currency):
+        Asset.__init__(self,asset_code,asset_price)
         self.__stock_ISIN = stock_ISIN
         self.__stock_currency = stock_currency
 
     def __repr__(self):
         return '{asset_code: '+self.get_asset_code()+\
-        ', asset_cost: '+str(self.get_asset_cost())+\
         ', asset_price: '+str(self.get_asset_price())+\
         ', stock_ISIN: '+str(self.__stock_ISIN)+\
         ', stock_currency:'+str(self.__stock_currency)+'}'

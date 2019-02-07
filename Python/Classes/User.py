@@ -15,12 +15,14 @@ class User:
         self.__user_lastname = user_lastname
         self.__user_firstname = user_firstname
         self.__user_risk = None
+        self.__user_list_portfolio= None
         
     def __repr__(self):
         return '{user_lastname: '+self.__user_lastname+\
                 ', user_firstname: '+\
                 self.__user_firstname+\
-                ', user_risk: '+str(self.__user_risk)+ '}'
+                ', user_risk: '+str(self.__user_risk)+\
+                ', user_list_portfolio:'+ str(self.__user_list_portfolio)+'}'
         
 # ACCESSEURS        
     
@@ -33,6 +35,9 @@ class User:
     def get_user_risk(self):
         return self.__user_risk 
     
+    def get_user_list_portfolio(self):
+        return self.get_user_list_portfolio
+    
     
     def set_user_lastname(self, user_lastname):
         self.__user_lastname = user_lastname
@@ -42,4 +47,6 @@ class User:
     
     def set_user_risk(self, user_risk):
         self.__user_risk = user_risk   
-    
+
+    def set_user_list_portfolio(self, user_list_portfolio):
+        self.__user_list_portfolio=user_list_portfolio   
