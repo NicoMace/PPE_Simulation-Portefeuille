@@ -86,8 +86,19 @@ class Portfolio:
     
     def comp_ptf_line_price(self, index):
         return self.__ptf_list_investments[index].get_investment_quantity()*\
-    self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
+                    self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
     
-    #
+    def comp_ptf_PnL(self):
+        PnL=0
+        for index in range(len(self.__ptf_list_investments)):
+            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index)
+        return PnL
+            
+    
+            
+        
+        
+        
+        
     
 
