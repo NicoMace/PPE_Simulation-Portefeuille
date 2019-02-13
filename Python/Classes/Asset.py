@@ -7,10 +7,10 @@ Created on Wed Jan 16 15:44:49 2019
 """
 
 
-
+#La class Asset est un abstract des classes sous jacentes.
+# Elle est composé du prix et du code de l'asset.
 class Asset:
     
-    #__asset_cost = None
     #__asset_price = None
     #__asset_code = None
     
@@ -24,8 +24,6 @@ class Asset:
         ', asset_price: '+str(self.__asset_price)+'}'    
 
 #ACCESSEURS
-        
-
     
     def get_asset_price(self):
         return self.__asset_price
@@ -33,7 +31,6 @@ class Asset:
     def get_asset_code(self):
         return self.__asset_code
     
-
         
     def set_asset_price(self,asset_price):
         self.__asset_price = asset_price

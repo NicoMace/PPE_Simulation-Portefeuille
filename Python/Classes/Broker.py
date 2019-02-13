@@ -6,6 +6,10 @@ Created on Wed Jan 16 20:50:25 2019
 @author: mithurangajendran
 """
 
+
+#La class Broker permet de fixer les fees correpondants aux différents Brokers
+#Elle est composé du nom et des frais du broker.
+
 class Broker:
     #__broker_name=None
     #__broker_fees = None
