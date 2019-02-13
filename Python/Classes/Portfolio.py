@@ -88,4 +88,6 @@ class Portfolio:
         return self.__ptf_list_investments[index].get_investment_quantity()*\
     self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
     
+    #
+    
 
