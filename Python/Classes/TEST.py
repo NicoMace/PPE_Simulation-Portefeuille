@@ -17,7 +17,7 @@ from Investment import Investment
 
 # DATAS EXTERNES
 
-d_broker=data = pd.read_csv("/Users/mithurangajendran/Documents/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
+d_broker=data = pd.read_csv("Users/nmace/Documents/GitHub/PPE_GIT/Python/DataCourtiers.txt",header=0, delimiter=" ")
 
 # TEST IMBRIQUEMENTS ET METHODES DIFFERENTES CLASSES
 u1=User("Macé", "Nicolas")
