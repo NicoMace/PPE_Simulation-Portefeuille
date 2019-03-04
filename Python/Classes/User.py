@@ -15,7 +15,7 @@ class User:
         self.__user_lastname = user_lastname
         self.__user_firstname = user_firstname
         self.__user_risk = None
-        self.__user_list_portfolio= None
+        self.__user_list_portfolio= list()
         
     def __repr__(self):
         return '{user_lastname: '+self.__user_lastname+\
@@ -50,3 +50,9 @@ class User:
 
     def set_user_list_portfolio(self, user_list_portfolio):
         self.__user_list_portfolio=user_list_portfolio   
+
+# METHODES
+        
+    def add_user_list_portfolio(self,user_portfolio):
+        self.__user_list_portfolio.append(user_portfolio)
+        
