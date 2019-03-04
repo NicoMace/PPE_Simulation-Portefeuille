@@ -38,24 +38,25 @@ class Broker:
         self.__broker_fees= broker_fees
         
 # METHODES
+        
+    def comp_broker_fees(self,asset_quantity,asset_price):
+        
+        for j in range (0,len(self.__broker_fees),4):
+            if (asset_quantity * asset_price > self.__broker_fees[j] and
+                asset_quantity*asset_price <= self.__broker_fees[j+1]):
+    #            fixed_fees = self.__broker_fees[j+2]
+                #variable_fees= self.__broker_fees[j+3]
+               # broker_fees = fixed_fees + variable_fees
+                return self.__broker_fees[j+2]+  self.__broker_fees[j+3]*asset_quantity * asset_price
+        
+        
 '''
    def update_broker_fees(self,d_broker):
         for i in range(0,len(d_broker)):
             if self.__broker_name == d_broker['Courtiers'][i]:
                 print(list(d_broker['Courtiers'][2:len(d_broker)]))
                 self.__broker_fees == list(d_broker['Courtiers'][2:len(d_broker)])
-            
-    
-    def comp_broker_fees(self,d_broker, asset_quantity, asset_price):
-        #update_broker_fees(d_broker)
-        
-        for j in range (0,len(self.__broker_fees),4):
-            if (asset_quantity * asset_price > self.__broker_fees[j] and
-                asset_quantity*asset_price <= self.__broker_fees[j+1]):
-                
-                fixed_fees = self.__broker_fees[j+2]
-                variable_fees= self.__broker_fees[j+3]
-                broker_fees = fixed_fees + variable_fees
-        return broker_fees
 '''
+    
+
 
