@@ -47,7 +47,7 @@ class Investment:
     def set_investment_asset(self,investment_asset):
         self.__investment_asset  = investment_asset
     
-    def set_investment__quantity(self,investment_quantity):
+    def set_investment_quantity(self,investment_quantity):
         self.__investment_quantity=investment_quantity
     
     def set_investment_date(self,investment_date):

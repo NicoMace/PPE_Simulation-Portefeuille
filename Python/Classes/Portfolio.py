@@ -94,9 +94,9 @@ class Portfolio:
 #METHODES
       
     def add_ptf_investment(self,ptf_investment):
-        if ptf_investment.comp_investment_price()< self.__ptf_capital:
+        if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
             self.__ptf_list_investments.append(ptf_investment)
-            self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_price()
+            self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
             print(True)
         else:
             print(False)
@@ -116,7 +116,33 @@ class Portfolio:
             PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
         self.__ptf_PnL= PnL
     
-    
+    def sell_ptf(self, index, investment_quantity):
+        broker_fees= self.__ptf_broker.comp_broker_fees(investment_quantity,self.__ptf_list_investments[index].get_investment_asset().get_asset_price())
+        
+        cash_flow=investment_quantity*\
+        self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
+        
+        if self.__ptf_capital>broker_fees:
+            self.__ptf_capital=self.__ptf_capital+cash_flow-broker_fees
+            self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()-investment_quantity)
+            print(True)
+        else:
+            print(False)
+        
+    def buy_ptf(self, index, investment_quantity):
+        broker_fees= self.__ptf_broker.comp_broker_fees(investment_quantity,self.__ptf_list_investments[index].get_investment_asset().get_asset_price())
+        
+        cash_flow=investment_quantity*\
+        self.__ptf_list_investments[index].get_investment_asset().get_asset_price()
+        
+        if self.__ptf_capital>broker_fees+cash_flow:
+            self.__ptf_capital=self.__ptf_capital-cash_flow-broker_fees
+            self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()+investment_quantity)
+            print(True)
+        else:
+            print(False)
+       
+        
             
     
         
