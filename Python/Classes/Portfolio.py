@@ -16,11 +16,12 @@ class Portfolio:
 
     ptf_list_investments = list()
     
-    def __init__(self,ptf_broker,ptf_expected_return, ptf_expected_risk):
+    def __init__(self,ptf_broker,ptf_expected_return, ptf_expected_risk, ptf_capital):
       self.__ptf_broker= ptf_broker
       self.__ptf_expected_return = ptf_expected_return
       self.__ptf_expected_risk = ptf_expected_risk
-      
+      self.__ptf_capital = ptf_capital
+      self.__ptf_PnL = None
       self.__ptf_real_return = None
       self.__ptf_real_risk = None
       
@@ -30,6 +31,8 @@ class Portfolio:
         return '{ptf_broker: '+str(self.__ptf_broker)+\
         ', ptf_expected_return: '+str(self.__ptf_expected_return)+\
         ', ptf_expected_risk: '+str(self.__ptf_expected_risk)+\
+        ', ptf_capital: '+str(self.__ptf_capital)+\
+        ', ptf_PnL: '+str(self.__ptf_PnL)+\
         ', ptf_real_return: '+str(self.__ptf_real_return)+\
         ', ptf_real_risk:'+str(self.__ptf_real_risk)+\
         ', ptf_list_investments: '+str(self.__ptf_list_investments)+'}'
@@ -54,6 +57,13 @@ class Portfolio:
     
     def get_ptf_real_risk(self): 
       return self.__ptf_real_risk
+
+    def get_ptf_capital(self):
+        return self.__ptf_capital
+    
+    def get_ptf_PnL(self):
+        return self.__ptf_PnL
+    
   
     
     def set_ptf_broker(self,ptf_broker):
@@ -73,12 +83,23 @@ class Portfolio:
     
     def set_ptf_real_risk(self,ptf_real_risk):
       self.__ptf_real_risk = ptf_real_risk
+      
+    def set_ptf_capital(self, ptf_capital):
+        self.__ptf_capital = ptf_capital
+    
+    def set_ptf_PnL(self, ptf_PnL):
+        self.__ptf_PnL= ptf_PnL
 
     
 #METHODES
       
     def add_ptf_investment(self,ptf_investment):
-      self.__ptf_list_investments.append(ptf_investment)
+        if ptf_investment.comp_investment_price()< self.__ptf_capital:
+            self.__ptf_list_investments.append(ptf_investment)
+            self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_price()
+            print(True)
+        else:
+            print(False)
       
     def comp_ptf_line_cost(self,index):
         return self.__ptf_list_investments[index].get_investment_cost()*\
@@ -93,7 +114,9 @@ class Portfolio:
         PnL=0
         for index in range(len(self.__ptf_list_investments)):
             PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
-        return PnL
+        self.__ptf_PnL= PnL
+    
+    
             
     
         

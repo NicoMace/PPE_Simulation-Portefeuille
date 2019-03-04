@@ -61,8 +61,18 @@ class Investment:
     def comp_investment_broker_fees(self,broker):
         return(broker.comp_broker_fees(self.__investment_quantity,self.__investment_cost))
     
-    def comp_investment_price(self):
-        return(self.__investment_quantity*self.__investment_asset.get_asset_price())
+    def comp_investment_price(self,broker):
+        return(self.__investment_quantity*self.__investment_asset.get_asset_price()-self.comp_investment_broker_fees(broker))
+        
+    def comp_investment_cost(self,broker):
+        return( self.__investment_quantity*self.__investment_cost+ self.comp_investment_broker_fees(broker))
+        
+    def comp_investment_PnL(self, broker):
+        return(self.comp_investment_price(broker)-self.comp_investment_cost(broker))
+        
+
+    
+    
     
 
     
