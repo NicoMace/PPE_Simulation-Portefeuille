@@ -7,7 +7,7 @@ Created on Wed Feb  6 19:20:46 2019
 
 from math import exp
 import numpy as np
-import brownian
+from Modelisation import brownian
 
 def comp_price_model_bs(x0,
                         N=12,
