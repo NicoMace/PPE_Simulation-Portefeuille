@@ -15,7 +15,7 @@ from Classes.Broker import Broker
 from Classes.Investment import Investment
 
 
-### Create an asset.
+### Create assets.
 # Total time.
 T = 1
 # Number of steps.
@@ -32,14 +32,16 @@ x = np.empty((NumberOfRealizations,N+1))
 x[:, 0] = 100
 # Black Scholes compute.
 blacksholes.comp_price_model_bs(x[:, 0], N,NumberOfRealizations,T,AnnualYield,out=x[:,1:])
-# Asset name.
-Name = "NATIXIS_SPOT"
-# Asset Price.
-Price = 6.95
-# Asset currency.
-Currency = "€"
+# Names.
+Name = ["Stock"+str(i) for i in range(NumberOfRealizations)]
+# 
+Data = np.concatenate(Name,x.transpose())
+# Assets Prices.
+Price = [i for i in x[:,0]]
+# Assets currencys.
+Currency = ["€" for i in range(NumberOfRealizations)]
 # Create the stock.
-Stock = Stock(Name, Price,Currency)
+Stock = Stock(Name, Price, Currency)
 
 
 ### Create a portfolio.
@@ -69,7 +71,7 @@ Portfolio.add_ptf_investment(Investment(Stock,Number,Date,Price))
 
 
 ### Buy and Hold plot.
-PnL = strat_buy_and_hold(Portfolio,0,N,1)
+PnL = strat_buy_and_hold(Portfolio,0,N,1,Data)
 
 for k in range(NumberOfRealizations):
     plot([i for i in range(len(PnL))], PnL)
