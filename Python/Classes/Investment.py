@@ -70,6 +70,7 @@ class Investment:
     def comp_investment_PnL(self, broker):
         return(self.comp_investment_price(broker)-self.comp_investment_cost(broker))
         
+        
 
     
     

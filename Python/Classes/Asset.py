@@ -43,5 +43,8 @@ class Asset:
     
     def set_asset_ISIN(self,asset_ISIN):
         self.__asset_ISIN = asset_ISIN
+        
+    def comp_asset_cost(self, asset_quantity, broker):
+        return ( self.__asset_price*asset_quantity + broker.comp_broker_fees(asset_quantity,self.__asset_price))
     
     

@@ -107,7 +107,7 @@ class Portfolio:
     self.__ptf_list_investments[index].comp_investment_broker_fees(self.get_ptf_broker())
     
     def comp_ptf_line_price(self, index):
-        return self.__ptf_list_investments[index].comp_investment_price()-\
+        return self.__ptf_list_investments[index].comp_investment_price(self.__ptf_broker)-\
         self.__ptf_list_investments[index].comp_investment_broker_fees(self.get_ptf_broker())
     
     def comp_ptf_PnL(self):
@@ -115,7 +115,8 @@ class Portfolio:
         for index in range(len(self.__ptf_list_investments)):
             PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
         self.__ptf_PnL= PnL
-    
+
+# METHODE BUY SELL ASSETS According to their index and Quanity
     def sell_ptf(self, index, investment_quantity):
         broker_fees= self.__ptf_broker.comp_broker_fees(investment_quantity,self.__ptf_list_investments[index].get_investment_asset().get_asset_price())
         
@@ -125,7 +126,7 @@ class Portfolio:
         if self.__ptf_capital>broker_fees:
             self.__ptf_capital=self.__ptf_capital+cash_flow-broker_fees
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()-investment_quantity)
-            print(True)
+            print(str(True)+ "Sold :"+ str(investment_quantity))
         else:
             print(False)
         
@@ -138,7 +139,7 @@ class Portfolio:
         if self.__ptf_capital>broker_fees+cash_flow:
             self.__ptf_capital=self.__ptf_capital-cash_flow-broker_fees
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()+investment_quantity)
-            print(True)
+            print(str(True)+ "Bought :" +str(investment_quantity))
         else:
             print(False)
        
