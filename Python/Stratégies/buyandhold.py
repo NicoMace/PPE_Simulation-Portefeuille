@@ -31,8 +31,8 @@ p1.add_ptf_investment(i1)
 #p1.add_ptf_investment(i2)
 
 
-def strat_buy_and_hold(start,Nb_Obs, periode):
-    L_investments=p1.get_ptf_list_investments()
+def strat_buy_and_hold(portfolio,start,Nb_Obs, periode):
+    L_investments=portfolio.get_ptf_list_investments()
     m_PnL=[]
     for jour in range(start,Nb_Obs+start,periode):
         print("Jour " +str(jour))
@@ -42,13 +42,13 @@ def strat_buy_and_hold(start,Nb_Obs, periode):
             
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
-            p1.comp_ptf_PnL()
-            m_PnL.append(p1.get_ptf_PnL())
+            portfolio.comp_ptf_PnL()
+            m_PnL.append(portfolio.get_ptf_PnL())
             
             print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
-        print("PnL de :"+ str(p1.get_ptf_PnL())+"\n")
+        print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
     return m_PnL
-m_PnL= strat_buy_and_hold(0,263,1)
+m_PnL= strat_buy_and_hold(p1,0,263,1)
             
 plt.figure(1)
 plt.plot([i for i in range(len(m_PnL))],m_PnL)

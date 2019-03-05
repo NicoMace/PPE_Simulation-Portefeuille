@@ -40,35 +40,39 @@ def strat_EC(treshold, portfolio, index,start,Nb_Obs, periode):#index of an inve
         investment_qty= investment.get_investment_quantity()
         asset_price= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
         investment.get_investment_asset().set_asset_price(asset_price)
-        lower_qty = (treshold-investment.get_investment_asset()//asset_price
-        upper_qty= lower_bound +1.
+        lower_qty = abs(treshold-investment.comp_investment_price(b1))//asset_price
+        upper_qty = lower_qty +1
+        print(lower_qty)
         
-        if lower_bound !=0:
+        if lower_qty !=0:
             
-            lower_bound_price=investment.get_investment_asset().comp_asset_cost(lower_bound, portfolio.get_ptf_broker())
+            lower_bound_price=investment.get_investment_asset().comp_asset_cost(lower_qty, portfolio.get_ptf_broker())
             print(lower_bound_price)
-            upper_bound_price=investment.get_investment_asset().comp_asset_cost(upper_bound, portfolio.get_ptf_broker())
+            upper_bound_price=investment.get_investment_asset().comp_asset_cost(upper_qty, portfolio.get_ptf_broker())
 
             
-            if (lower_bound <investment_qty and upper_bound<investment_qty):
+            if (lower_qty <investment_qty and upper_qty<investment_qty):
                         
                 if lower_bound_price<=upper_bound_price:
-                    portfolio.sell_ptf(index, abs(lower_bound-investment_qty))
+                    portfolio.sell_ptf(index, abs(lower_qty))
                 else:
-                    portfolio.sell_ptf(index, abs(upper_bound-investment_qty))
+                    portfolio.sell_ptf(index, abs(upper_qty))
     
             
-            elif (lower_bound >investment_qty and upper_bound>investment_qty):
+            elif (lower_qty >investment_qty and upper_qty>investment_qty):
                 
                 if lower_bound_price>=upper_bound_price:
-                    portfolio.buy_ptf(index, abs(lower_bound-investment_qty))
+                    portfolio.buy_ptf(index, abs(lower_qty))
                 else:
                     print(upper_bound-investment_qty)
-                    portfolio.buy_ptf(index, abs(upper_bound-investment_qty))
+                    portfolio.buy_ptf(index, abs(upper_qty))
             p1.comp_ptf_PnL()
+            
+        else:
+            print("Lower_qty=0")
             
         print("Investment Quantity :"+ str(investment.get_investment_quantity())+" Price night :"+ str(investment.comp_investment_price(b1)))
         print("PnL :"+ str(p1.get_ptf_PnL())+"\n")
             
 
-strat_EC(500, p1,0,0,1,1)
+strat_EC(500, p1,0,0,10,1)
