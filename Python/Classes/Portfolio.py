@@ -104,11 +104,11 @@ class Portfolio:
     def comp_ptf_line_cost(self,index):
         return self.__ptf_list_investments[index].get_investment_cost()*\
     self.__ptf_list_investments[index].get_investment_quantity() + \
-    self.__ptf_list_investments[index].comp_investment_broker_fees(self.get_ptf_broker())
+    self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_line_price(self, index):
         return self.__ptf_list_investments[index].comp_investment_price(self.__ptf_broker)-\
-        self.__ptf_list_investments[index].comp_investment_broker_fees(self.get_ptf_broker())
+        self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_PnL(self):
         PnL=0
@@ -126,7 +126,7 @@ class Portfolio:
         if self.__ptf_capital>broker_fees:
             self.__ptf_capital=self.__ptf_capital+cash_flow-broker_fees
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()-investment_quantity)
-            print(str(True)+ "Sold :"+ str(investment_quantity))
+            print(str(True)+ " sold :"+ str(investment_quantity))
         else:
             print(False)
         
@@ -139,7 +139,7 @@ class Portfolio:
         if self.__ptf_capital>broker_fees+cash_flow:
             self.__ptf_capital=self.__ptf_capital-cash_flow-broker_fees
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()+investment_quantity)
-            print(str(True)+ "Bought :" +str(investment_quantity))
+            print(str(True)+ " Bought :" +str(investment_quantity))
         else:
             print(False)
        
