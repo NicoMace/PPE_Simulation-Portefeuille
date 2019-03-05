@@ -10,6 +10,20 @@ import os
 ######################################### INISTIALISATION ######################@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
+from Classes.User import User
+from Classes.Portfolio import Portfolio
+from Classes.Stock import Stock
+from Classes.Broker import Broker
+from Classes.Investment import Investment
+
+
+d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
+data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")
+
+# Pierre
+"""d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
+data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")"""
 
 ### BROKER
 b1= Broker("BoursoramaDecouverte",(0,500,1.99,0,501,10**10,0,0.006))
@@ -31,7 +45,7 @@ p1.add_ptf_investment(i1)
 #p1.add_ptf_investment(i2)
 
 
-def strat_buy_and_hold(portfolio,start,Nb_Obs, periode):
+def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
     L_investments=portfolio.get_ptf_list_investments()
     m_PnL=[]
     for jour in range(start,Nb_Obs+start,periode):
