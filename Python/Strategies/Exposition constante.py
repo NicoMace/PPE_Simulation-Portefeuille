@@ -44,52 +44,11 @@ p1.add_ptf_investment(i1,data)
 #p1.add_ptf_investment(i2)
 
 # FUNCTION INTERMEDIARE
-
-def strat_EC1(treshold, portfolio, index,start,Nb_Obs, periode):#index of an investment
-    
-    investment= portfolio.get_ptf_list_investments()[index]  
-    for jour in range(start, Nb_Obs+start, periode):
-        
-        print("Jour " +str(jour)+" Price morning: "+ str(investment.comp_investment_price(b1)))
-        investment_qty= investment.get_investment_quantity()
-        asset_price= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
-        investment.get_investment_asset().set_asset_price(asset_price)
-        lower_qty = abs(treshold-investment.comp_investment_price(b1))//asset_price
-        upper_qty = lower_qty +1
-
-        if lower_qty !=0:
-            
-            lower_bound_price=investment.get_investment_asset().comp_asset_cost(abs(lower_qty), portfolio.get_ptf_broker())
-            upper_bound_price=investment.get_investment_asset().comp_asset_cost(abs(upper_qty), portfolio.get_ptf_broker())
-            if (lower_qty <investment_qty and upper_qty<investment_qty):
-                if lower_bound_price<=upper_bound_price:
-                    portfolio.sell_ptf(index, abs(lower_qty))
-                    investment_qty= investment.get_investment_quantity()
-                    print(investment_qty)
-                    print(investment.comp_investment_cost(b1))
-                else:
-
-                    portfolio.sell_ptf(index, abs(upper_qty))
-
-            elif (lower_qty >investment_qty and upper_qty>investment_qty):
-                print("lol")
-                if lower_bound_price<=upper_bound_price:
-                    portfolio.buy_ptf(index, abs(lower_qty))
-                else:
-                    print(upper_bound-investment_qty)
-                    portfolio.buy_ptf(index, abs(upper_qty))
-            p1.comp_ptf_PnL()
-        else:
-            print("Lower_qty=0")
-
-
-        print("Investment Quantity :"+ str(investment.get_investment_quantity())+" Price night :"+ str(investment.comp_investment_price(b1)))
-        print("PnL :"+ str(p1.get_ptf_PnL())+"\n")
         
         
 def strat_EC(treshold, portfolio, index, start, Nb_Obs, periode):
     m_PnL=[]
-    capital=[]
+    value=[]
     investment= portfolio.get_ptf_list_investments()[index] 
     
     for jour in range(start, Nb_Obs+start, periode):
@@ -115,17 +74,17 @@ def strat_EC(treshold, portfolio, index, start, Nb_Obs, periode):
             elif upper_qty-investment.get_investment_quantity()>0:
                 portfolio.buy_ptf(index,abs(upper_qty-investment.get_investment_quantity()))
         p1.comp_ptf_PnL()
-        capital.append(portfolio.get_ptf_capital()+portfolio.get_ptf_PnL())
+        value.append(portfolio.comp_ptf_value())
         
         m_PnL.append(p1.get_ptf_PnL())
         #print("Investment Quantity :"+ str(investment.get_investment_quantity())+" Price night :"+ str(investment.comp_investment_price(b1)))
         #print("PnL :"+ str(p1.get_ptf_PnL())+"\n")
         
-    return m_PnL, capital
+    return m_PnL, value
 
     
 
-m_PnL, capital=strat_EC(1000, p1,0,50,70,1)
+m_PnL, value=strat_EC(200, p1,0,0,200,1)
 
 
 print(np.mean(m_PnL))
@@ -148,18 +107,18 @@ def chart(Y1, Y2):
     newax.spines['bottom'].set_position(('outward', 35))
     
     ax.plot(Y1, 'r-')
-    ax.set_xlabel('Red X-axis', color='red')
-    ax.set_ylabel('Red Y-axis', color='red')
+    ax.set_xlabel('Red X1-axis', color='red')
+    ax.set_ylabel('Y1', color='red')
     
     
     newax.plot(Y2, 'g-')
     
-    newax.set_xlabel('Green X-axis', color='green')
-    newax.set_ylabel('Green Y-axis', color='green')
+    newax.set_xlabel('Green X1-axis', color='green')
+    newax.set_ylabel('Y2', color='green')
     
     print(" Moyenne :"+str(np.mean(m_PnL))+" Std :"+str(np.std(m_PnL)))
     print(" Moyenne :"+str(np.mean(capital))+" Std :"+str(np.std(capital)))
     
 
     plt.show()
-chart(m_PnL,capital)
+chart(m_PnL,value)

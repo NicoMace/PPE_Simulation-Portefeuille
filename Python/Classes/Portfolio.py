@@ -124,6 +124,13 @@ class Portfolio:
         for index in range(len(self.__ptf_list_investments)):
             PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
         self.__ptf_PnL= PnL
+    
+    def comp_ptf_value(self):
+        value=0
+        for index in range(len(self.__ptf_list_investments)):
+            value+= self.comp_ptf_line_price(index) 
+            
+        return value+self.__ptf_capital
 
 # METHODE BUY SELL ASSETS According to their index and Quanity
     def sell_ptf(self, index, investment_quantity):
@@ -151,6 +158,7 @@ class Portfolio:
             print(str(True)+ " Bought :" +str(investment_quantity))
         else:
             print(False)
+        
        
         
             
