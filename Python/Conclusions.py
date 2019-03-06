@@ -5,7 +5,21 @@ Created on Tue Mar  5 12:45:01 2019
 @author: Pierre
 """
 
+### Path.
+import os
+#BDD
+#os.chdir('/Server/PPE_GIT/Python')
+#Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')
+#Nicolas
+#os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')
+#Pierre
+os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
+
+
+### Importations.
 import numpy as np
+import pandas as pd
 from pylab import plot, show, grid, xlabel, ylabel
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
@@ -15,7 +29,21 @@ from Classes.Broker import Broker
 from Classes.Investment import Investment
 
 
-### Create assets.
+### Universal datas.
+# Funds.
+Capital = 10000
+# Broker.
+BrokerName = "BoursoramaDecouverte"
+# Start date.
+Date = "7/02/2019"
+# End date.
+# Expected return.
+Return = 0.30
+# Expected risk.
+Risk = 0.15
+
+
+### Create assets basket.
 # Total time.
 T = 1
 # Number of steps.
@@ -33,10 +61,10 @@ x[:, 0] = 100
 # Black Scholes compute.
 blacksholes.comp_price_model_bs(x[:, 0], N,NumberOfRealizations,T,AnnualYield,out=x[:,1:])
 # Names.
-Name = ["Stock"+str(i) for i in range(NumberOfRealizations)]
-# 
-Data = np.concatenate(Name,x.transpose())
-# Assets Prices.
+Name = ["Stock"+str(i+1) for i in range(NumberOfRealizations)]
+# Create data frame.
+Data = pd.DataFrame(np.array(x.transpose()), columns=Name)
+# Initials Assets Prices.
 Price = [i for i in x[:,0]]
 # Assets currencys.
 Currency = ["€" for i in range(NumberOfRealizations)]
@@ -45,16 +73,8 @@ Stock = Stock(Name, Price, Currency)
 
 
 ### Create a portfolio.
-# Broker.
-BrokerName = "BoursoramaDecouverte"
 # Fees.
 Fees = (0,500,1.99,0,501,10**10,0,0.006)
-# Expected return.
-Return = 0.30
-# Expected risk.
-Risk = 0.15
-# Capital.
-Capital = 10000
 # Portfolio compute.
 Portfolio = Portfolio(Broker(BrokerName,Fees), Return, Risk,Capital)
 
@@ -62,8 +82,6 @@ Portfolio = Portfolio(Broker(BrokerName,Fees), Return, Risk,Capital)
 ### Add the investment to the portfolio.
 # Number.
 Number = 10
-# Date.
-Date = "7/02/2019"
 # Price.
 Price = 6.95
 # Adding.
