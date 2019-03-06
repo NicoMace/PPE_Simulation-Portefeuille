@@ -3,28 +3,27 @@
 Created on Wed Feb 13 18:09:35 2019
 
 @author: Pierre
+
+
+
+"""
+#P######################################## PATH
 import os
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 
-
-"""
 ######################################### INISTIALISATION ######################@
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from Classes.User import User
-from Classes.Portfolio import Portfolio
-from Classes.Stock import Stock
-from Classes.Broker import Broker
-from Classes.Investment import Investment
-"""
 
-#d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
-#data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")
+from Classes import *
 
-# Pierre
-"""d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
-data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")"""
+d_broker= pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
+data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
+
+##################### BODY ########################
 
 ### BROKER
 b1= Broker("BoursoramaDecouverte",(0,500,1.99,0,501,10**10,0,0.006))
@@ -63,7 +62,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
             print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
         print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
     return m_PnL
-m_PnL= strat_buy_and_hold(p1,0,263,1,data)
+m_PnL= strat_buy_and_hold(p1,0,100,1,data)
             
 plt.figure(1)
 plt.plot([i for i in range(len(m_PnL))],m_PnL)

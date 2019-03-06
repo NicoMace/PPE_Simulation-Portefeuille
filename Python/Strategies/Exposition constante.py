@@ -5,12 +5,23 @@ Created on Tue Mar  5 08:27:45 2019
 
 @author: mithurangajendran
 """
-# INIT
+#P######################################## PATH
+import os
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+
+######################################### INISTIALISATION ######################@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-data= pd.read_csv("/Users/mithurangajendran/Documents/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")
 
+from Classes import *
+
+d_broker= pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
+data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
+
+##################### BODY ########################
 ### BROKER
 b1= Broker("BoursoramaDecouverte",(0,500,1.99,0,500,10**10,0,0.006))
 b2= Broker("BoursoramaClassic", (0,5000,5.5,0,5000,10**10,0,0.0048))
