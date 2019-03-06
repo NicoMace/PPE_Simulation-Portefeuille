@@ -45,7 +45,7 @@ class Broker:
             if asset_quantity ==0 or asset_price ==0:
                 return 0
             elif asset_quantity !=0 and asset_price !=0:
-                if (asset_quantity * asset_price > self.__broker_fees[j] and
+                if (asset_quantity * asset_price >= self.__broker_fees[j] and
                     asset_quantity*asset_price <= self.__broker_fees[j+1]):
         #            fixed_fees = self.__broker_fees[j+2]
                     #variable_fees= self.__broker_fees[j+3]
