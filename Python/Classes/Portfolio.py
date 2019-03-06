@@ -120,10 +120,10 @@ class Portfolio:
         self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_PnL(self):
-    
+        PnL=0
         for index in range(len(self.__ptf_list_investments)):
-            self.__ptf_PnL=self.__ptf_PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
-
+            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
+        self.__ptf_PnL= PnL
 
 # METHODE BUY SELL ASSETS According to their index and Quanity
     def sell_ptf(self, index, investment_quantity):

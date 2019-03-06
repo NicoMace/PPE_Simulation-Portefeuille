@@ -114,8 +114,9 @@ def strat_EC(treshold, portfolio, index, start, Nb_Obs, periode):
             
             elif upper_qty-investment.get_investment_quantity()>0:
                 portfolio.buy_ptf(index,abs(upper_qty-investment.get_investment_quantity()))
-        capital.append(portfolio.get_ptf_capital())
         p1.comp_ptf_PnL()
+        capital.append(portfolio.get_ptf_capital()+portfolio.get_ptf_PnL())
+        
         m_PnL.append(p1.get_ptf_PnL())
         #print("Investment Quantity :"+ str(investment.get_investment_quantity())+" Price night :"+ str(investment.comp_investment_price(b1)))
         #print("PnL :"+ str(p1.get_ptf_PnL())+"\n")

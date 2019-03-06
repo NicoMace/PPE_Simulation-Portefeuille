@@ -65,7 +65,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
             
             investment_PnL.append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
         portfolio.comp_ptf_PnL()
-        capital.append(portfolio.get_ptf_PnL())
+        capital.append(portfolio.get_ptf_capital())
         
         
             
@@ -74,7 +74,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
     return (investment_PnL, capital)
 investment_PnL, capital= strat_buy_and_hold(p1,0,263,1,data)
 
-
+#PNL POTENTIEL PRNBLEME DE FRAIS
 
 def chart(Y1, Y2):
     
