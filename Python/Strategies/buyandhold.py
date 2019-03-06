@@ -38,33 +38,76 @@ start=0
 u1=User("Macé", "Nicolas")
 p1= Portfolio(b1, 0.30, 0.15,10000)
 
-s1=Stock("NATIXIS_SPOT","€")
-s2=Stock("CAC_SPOT",5365.83,"P")
+s1=Stock("NATIXIS_SPOT","€",6.95)
+s2=Stock("CAC_SPOT","P",5365.83)
 
-i1=Investment(s1,1,"07/02/2019",6.95)
+i1=Investment(s1,100,"07/02/2019",6.95)
 i2=Investment(s2,10,"07/02/2019",5365.83)
 
-p1.set_ptf_list_investments(i1)
+p1.add_ptf_investment(i1,data)
 #p1.add_ptf_investment(i2)
 
 
 def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
-    L_investments=portfolio.get_ptf_list_investments()
-    m_PnL=[]
+
+    investment_PnL=[]
+    capital=[]
+    
+    
     for jour in range(start,Nb_Obs+start,periode):
-        print("Jour " +str(jour))
-        for investment in L_investments:
+        #print("Jour " +str(jour))
+        for investment in portfolio.get_ptf_list_investments():
             investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
             cout_investment = investment.get_investment_cost()
             
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
-            portfolio.comp_ptf_PnL()
-            m_PnL.append(portfolio.get_ptf_PnL())
             
-            print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
-        print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
-    return m_PnL
-m_PnL= strat_buy_and_hold(p1,0,100,1,data)
+            investment_PnL.append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
+        portfolio.comp_ptf_PnL()
+        capital.append(portfolio.get_ptf_PnL())
+        
+        
+            
+            #print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
+        #print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
+    return (investment_PnL, capital)
+investment_PnL, capital= strat_buy_and_hold(p1,0,263,1,data)
+
+
+
+def chart(Y1, Y2):
+    
+
+    fig, ax = plt.subplots()
+    fig.subplots_adjust(bottom=0.2, right=0.85)
+    
+    newax = fig.add_axes(ax.get_position())
+    newax.patch.set_visible(False)
+    
+    newax.yaxis.set_label_position('right')
+    newax.yaxis.set_ticks_position('right')
+    
+    newax.spines['bottom'].set_position(('outward', 35))
+    
+    ax.plot(Y2, 'r-')
+    ax.set_xlabel('Red X-axis', color='red')
+    ax.set_ylabel('Red Y-axis', color='red')
+    
+    
+    newax.plot(Y1, 'g-')
+    
+    newax.set_xlabel('Green X-axis', color='green')
+    newax.set_ylabel('Green Y-axis', color='green')
+    
+    
+    plt.show()
+
+
+
+
+
+chart(investment_PnL, capital)
+
 
 

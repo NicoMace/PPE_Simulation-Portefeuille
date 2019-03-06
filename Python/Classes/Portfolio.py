@@ -21,7 +21,7 @@ class Portfolio:
       self.__ptf_expected_return = ptf_expected_return
       self.__ptf_expected_risk = ptf_expected_risk
       self.__ptf_capital = ptf_capital
-      self.__ptf_PnL = None
+      self.__ptf_PnL = 0
       self.__ptf_real_return = None
       self.__ptf_real_risk = None
       
@@ -93,13 +93,22 @@ class Portfolio:
     
 #METHODES
       
-    def add_ptf_investment(self,ptf_investment):
-        if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
-            self.__ptf_list_investments.append(ptf_investment)
-            self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
-            print(True)
-        else:
-            print(False)
+    def add_ptf_investment(self,ptf_investment,data):
+        if ptf_investment.get_investment_asset().get_asset_price() != None:
+            if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
+                self.__ptf_list_investments.append(ptf_investment)
+                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
+                print(True)
+            else:
+                print(False)
+        elif ptf_investment.get_investment_asset().get_asset_price() == None:
+            ptf_investment.get_investment_asset().set_asset_price(data.iloc[0][ptf_investment.get_investment_asset().get_asset_ISIN()])
+            if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
+                self.__ptf_list_investments.append(ptf_investment)
+                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
+                print(True)
+            else:
+                print(False)
       
     def comp_ptf_line_cost(self,index):
         return self.__ptf_list_investments[index].get_investment_cost()*\
@@ -111,10 +120,10 @@ class Portfolio:
         self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_PnL(self):
-        PnL=0
+    
         for index in range(len(self.__ptf_list_investments)):
-            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
-        self.__ptf_PnL= PnL
+            self.__ptf_PnL=self.__ptf_PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
+
 
 # METHODE BUY SELL ASSETS According to their index and Quanity
     def sell_ptf(self, index, investment_quantity):

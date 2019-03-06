@@ -5,7 +5,7 @@ Created on Wed Feb  6 21:17:14 2019
 
 @author: mithurangajendran
 """
-import copy
+
 
 class Investment:
     #__investment_asset = NA,
@@ -19,7 +19,7 @@ class Investment:
         self.__investment_asset = investment_asset
         self.__investment_quantity = investment_quantity
         self.__investment_date = investment_date
-        self.__investment_cost = investment_cost
+        self.__investment_cost = investment_cost # cout unitaire à l'achat sans broker fees
 
         
     def __repr__(self):
