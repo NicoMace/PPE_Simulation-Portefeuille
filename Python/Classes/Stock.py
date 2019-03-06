@@ -13,7 +13,7 @@ class Stock(Asset):
     #__stock_currency = None
    
     
-    def __init__(self,asset_ISIN,asset_price,stock_currency):
+    def __init__(self,asset_ISIN,stock_currency,asset_price=None):
         Asset.__init__(self,asset_ISIN,asset_price)
         self.__stock_currency = stock_currency
 

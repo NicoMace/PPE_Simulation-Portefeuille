@@ -15,7 +15,7 @@ class Asset:
     #__asset_price = None
     #__asset_ISIN = None
     
-    def __init__(self,asset_ISIN,asset_price):
+    def __init__(self,asset_ISIN,asset_price=None):
         self.__asset_ISIN = asset_ISIN 
         self.__asset_price = asset_price
 

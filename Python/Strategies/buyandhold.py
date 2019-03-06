@@ -12,10 +12,9 @@ import os
 os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
-<<<<<<< HEAD
+
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
-=======
->>>>>>> parent of e0b76ac... Merge branch 'master' of https://github.com/Blacklord100/PPE_GIT
+
 
 ######################################### INISTIALISATION ######################@
 import numpy as np
@@ -35,7 +34,7 @@ b2= Broker("BoursoramaClassic", (0,5000,5.5,0,5001,10**10,0,0.0048))
 
 
 #### NICOLAS
-
+start=0
 u1=User("Macé", "Nicolas")
 p1= Portfolio(b1, 0.30, 0.15,10000)
 
