@@ -44,7 +44,7 @@ s2=Stock("CAC_SPOT",5365.83,"P")
 i1=Investment(s1,1,"07/02/2019",6.95)
 i2=Investment(s2,10,"07/02/2019",5365.83)
 
-p1.add_ptf_investment(i1)
+p1.set_ptf_list_investments(i1)
 #p1.add_ptf_investment(i2)
 
 
