@@ -10,6 +10,7 @@ import os
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
 ######################################### INISTIALISATION ######################@
 import numpy as np
