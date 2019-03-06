@@ -36,7 +36,7 @@ b2= Broker("BoursoramaClassic", (0,5000,5.5,0,5001,10**10,0,0.0048))
 u1=User("Macé", "Nicolas")
 p1= Portfolio(b1, 0.30, 0.15,10000)
 
-s1=Stock("NATIXIS_SPOT",6.95,"€")
+s1=Stock("NATIXIS_SPOT","€")
 s2=Stock("CAC_SPOT",5365.83,"P")
 
 i1=Investment(s1,1,"07/02/2019",6.95)
