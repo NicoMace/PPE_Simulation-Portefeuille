@@ -5,7 +5,7 @@ Created on Wed Jan 16 15:54:22 2019
 
 @author: mithurangajendran
 """
-from Classes.Asset import Asset
+from Asset import Asset
 
 
 class Stock(Asset):

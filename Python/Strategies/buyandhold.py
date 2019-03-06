@@ -8,6 +8,7 @@ import os
 
 """
 ######################################### INISTIALISATION ######################@
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -16,10 +17,10 @@ from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
 from Classes.Investment import Investment
+"""
 
-
-d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
-data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")
+#d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
+#data= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/d_historique.txt", header=0, delimiter="\t")
 
 # Pierre
 """d_broker= pd.read_csv("D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python/Data/Courtiers.txt",header=0, delimiter=" ")
@@ -62,7 +63,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
             print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
         print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
     return m_PnL
-m_PnL= strat_buy_and_hold(p1,0,263,1)
+m_PnL= strat_buy_and_hold(p1,0,263,1,data)
             
 plt.figure(1)
 plt.plot([i for i in range(len(m_PnL))],m_PnL)
