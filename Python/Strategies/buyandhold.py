@@ -12,7 +12,7 @@ import os
 os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
-os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
+#os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
 ######################################### INISTIALISATION ######################@
 import numpy as np
@@ -39,7 +39,7 @@ p1= Portfolio(b1, 0.30, 0.15,10000)
 s1=Stock("NATIXIS_SPOT",6.95,"€")
 s2=Stock("CAC_SPOT",5365.83,"P")
 
-i1=Investment(s1,1,"7/02/2019",6.95)
+i1=Investment(s1,1,"07/02/2019",6.95)
 i2=Investment(s2,10,"07/02/2019",5365.83)
 
 p1.add_ptf_investment(i1)
@@ -64,18 +64,5 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
         print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
     return m_PnL
 m_PnL= strat_buy_and_hold(p1,0,100,1,data)
-            
-plt.figure(1)
-plt.plot([i for i in range(len(m_PnL))],m_PnL)
-plt.figure(2)
-plt.plot(data.NATIXIS_SPOT)
-plt.show()
-
-print(np.mean(data.NATIXIS_SPOT))
-print(np.std(data.NATIXIS_SPOT))
-
-
-print(np.mean(m_PnL))
-print(np.std(m_PnL))
 
 

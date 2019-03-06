@@ -7,10 +7,10 @@ Created on Tue Mar  5 08:27:45 2019
 """
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
-os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
+#os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
 ######################################### INISTIALISATION ######################@
 import numpy as np
@@ -36,7 +36,7 @@ p1= Portfolio(b1, 0.30, 0.15,10000)
 s1=Stock("NATIXIS_SPOT",6.95,"€")
 s2=Stock("CAC_SPOT",5365.83,"P")
 
-i1=Investment(s1,100,"7/02/2019",6.95)
+i1=Investment(s1,100,"07/02/2019",6.95)
 i2=Investment(s2,10,"07/02/2019",5365.83)
 
 p1.add_ptf_investment(i1)
