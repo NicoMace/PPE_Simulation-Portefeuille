@@ -33,6 +33,8 @@ def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBaske
     
     '''help'''
     
+    # IMPLEMENTER LE RISK puis le ratio.
+    
     ### Initialisations.
     
     # Create Broker.
@@ -63,34 +65,30 @@ def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBaske
     
     # Compute initials investment cost.
     L_Investments = portfolio.get_ptf_list_investments()
-    InitialInvestmentCost = []
     for investment in L_Investments:
         investment.set_investment_cost(data.iloc[Start][investment.get_investment_asset().get_asset_ISIN()])
-        InitialInvestmentCost += investment.get_investment_cost()
-    
+        
     
     ### Daily processing.
+    PortfolioPnL = []
     Periode = End - Start #Revoir le calcul
     for day in range(Periode):
         
         # For each portfolio line.
-        for index, investment in enumerate(L_Investments):
-            
-    
-    
-    
-    m_PnL=[]
-    for jour in range(start,Nb_Obs+start,periode):
-        print("Jour " +str(jour))
-        for investment in L_investments:
-            investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
-            cout_investment = investment.get_investment_cost()
-            
-            prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
-            investment.get_investment_asset().set_asset_price(prix_actif)
-            portfolio.comp_ptf_PnL()
-            m_PnL.append(portfolio.get_ptf_PnL())
-            
-            print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
-        print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
-    return m_PnL
+        for investment in L_Investments:
+            # Refresh asset price.
+            AssetPrice = data.iloc[day][investment.get_investment_asset().get_asset_ISIN()]
+            investment.get_investment_asset().set_asset_price(AssetPrice)
+        
+        # Compute portfolio PnL.
+        Portfolio.comp_ptf_PnL()    # Revoir la methode & les arguments
+        PnL = Portfolio.get_ptf_PnL
+        PortfolioPnL += [PnL]
+
+
+
+
+
+
+
+
