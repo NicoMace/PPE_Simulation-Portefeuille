@@ -14,22 +14,16 @@ import os
 #Nicolas
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')
 #Pierre
-#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
+os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 
 
 ### Importations.
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
 from Classes import *
-
-d_broker= pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
-data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 
 
 ### Buy and Hold.
 
-def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBasket, DataAsset, DataBroker):
+def strat_buy_and_hold_bis(Capital, BrokerName, Start, End, Return, Risk, AssetBasket, DataAsset, DataBroker):
     
     '''help'''
     
@@ -65,7 +59,7 @@ def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBaske
     L_Investments = portfolio.get_ptf_list_investments()
     InitialInvestmentCost = []
     for investment in L_Investments:
-        investment.set_investment_cost(data.iloc[Start][investment.get_investment_asset().get_asset_ISIN()])
+        investment.set_investment_cost(DataAsset.iloc[Start][investment.get_investment_asset().get_asset_ISIN()])
         InitialInvestmentCost += investment.get_investment_cost()
     
     
@@ -79,13 +73,13 @@ def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBaske
     
     
             m_PnL=[]
-    for jour in range(start,Nb_Obs+start,periode):
+    for jour in range(Start,Nb_Obs+Start,periode):
         print("Jour " +str(jour))
         for investment in L_investments:
-            investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
+            investment.set_investment_cost(DataAsset.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
             cout_investment = investment.get_investment_cost()
             
-            prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
+            prix_actif= DataAsset.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
             portfolio.comp_ptf_PnL()
             m_PnL.append(portfolio.get_ptf_PnL())
