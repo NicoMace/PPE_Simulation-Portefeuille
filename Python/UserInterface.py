@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 from pylab import plot, show, grid, xlabel, ylabel
 from Modelisation import blacksholes
-from Strategies.BuyandHoldbyPierre import strat_buy_and_hold_bis
+from Strategies.buyandhold import strat_buy_and_hold
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -46,11 +46,6 @@ Risk = 0.15
 DataAsset = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 # Broker fees.
 DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
-
-
-
-import date
-Startdate = date.frimisoformat(Start)
 
 
 ### Create assets basket.
@@ -104,7 +99,7 @@ for i in range(Investments):
 
 
 ### Buy and Hold plot.
-PnL = strat_buy_and_hold_bis(Portfolio,0,N,1,Data)
+PnL = strat_buy_and_hold(Portfolio,0,N,dt,Data)
 
 for k in range(NumberOfRealizations):
     plot([i for i in range(len(PnL))], PnL)
