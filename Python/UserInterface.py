@@ -37,6 +37,7 @@ BrokerName = "BoursoramaDecouverte"
 # Start date.
 Date = "7/02/2019"
 # End date.
+
 # Expected return.
 Return = 0.30
 # Expected risk.
