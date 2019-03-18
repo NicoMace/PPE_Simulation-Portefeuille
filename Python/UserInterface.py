@@ -82,7 +82,7 @@ Broker = Broker(BrokerName, DataBroker)     #Revoir DataBroker
 Portfolio = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
 Assets = []
-for i in range(Names):
+for i in range(len(Names)):
     AssetName = Names[i]
     Currency = Currencies[i]
     Assets += [Stock(AssetName, Currency)]
@@ -94,9 +94,10 @@ for i in Assets:
     # Investments.
     Investments += [Investment(i, AssetQuantity, Start, DataAsset)]    #Revoir DataAsset
 # Add investments in portfolio.
-for i in range(Investments):
-    Portfolio.add_ptf_investment(Investments[i])
+for i in range(len(Investments)):
+    Portfolio.add_ptf_investment(Investments[i],Data)
 
+Portfolio.__repr__()
 
 ### Buy and Hold plot.
 PnL = strat_buy_and_hold(Portfolio,0,N,dt,Data)
