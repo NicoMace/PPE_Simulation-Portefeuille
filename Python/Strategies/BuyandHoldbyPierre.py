@@ -14,7 +14,7 @@ import os
 #Nicolas
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')
 #Pierre
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 
 
 ### Importations.
@@ -78,8 +78,7 @@ def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBaske
             
     
     
-    
-    m_PnL=[]
+            m_PnL=[]
     for jour in range(start,Nb_Obs+start,periode):
         print("Jour " +str(jour))
         for investment in L_investments:
