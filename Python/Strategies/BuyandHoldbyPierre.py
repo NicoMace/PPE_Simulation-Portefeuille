@@ -18,13 +18,18 @@ os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 
 
 ### Importations.
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 from Classes import *
 
+d_broker= pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
+data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 
 
 ### Buy and Hold.
 
-def strat_buy_and_hold_bis(Capital, BrokerName, Start, End, Return, Risk, AssetBasket, DataAsset, DataBroker):
+def strat_buy_and_hold(Capital, BrokerName, Start, End, Return, Risk, AssetBasket, DataAsset, DataBroker):
     
     '''help'''
     
@@ -61,7 +66,7 @@ def strat_buy_and_hold_bis(Capital, BrokerName, Start, End, Return, Risk, AssetB
     # Compute initials investment cost.
     L_Investments = portfolio.get_ptf_list_investments()
     for investment in L_Investments:
-        investment.set_investment_cost(DataAsset.iloc[Start][investment.get_investment_asset().get_asset_ISIN()])
+        investment.set_investment_cost(data.iloc[Start][investment.get_investment_asset().get_asset_ISIN()])
         
     
     ### Daily processing.
@@ -72,7 +77,7 @@ def strat_buy_and_hold_bis(Capital, BrokerName, Start, End, Return, Risk, AssetB
         # For each portfolio line.
         for investment in L_Investments:
             # Refresh asset price.
-            AssetPrice = DataAsset.iloc[day][investment.get_investment_asset().get_asset_ISIN()]
+            AssetPrice = data.iloc[day][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(AssetPrice)
         
         # Compute portfolio PnL.
