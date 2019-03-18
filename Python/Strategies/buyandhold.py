@@ -50,7 +50,7 @@ p1.add_ptf_investment(i1,data)
 
 def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
 
-    investment_PnL=[]
+    value=[]
     capital=[]
     
     
@@ -58,25 +58,22 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
         #print("Jour " +str(jour))
         for investment in portfolio.get_ptf_list_investments():
             investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
-            cout_investment = investment.get_investment_cost()
+
             
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
-            
-            investment_PnL.append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
-        portfolio.comp_ptf_PnL()
-        capital.append(portfolio.get_ptf_capital())
         
+            portfolio.comp_ptf_PnL()
+            value.append(portfolio.comp_ptf_value())
+            capital.append(portfolio.get_ptf_capital())
         
-            
-            #print(investment.get_investment_asset().get_asset_ISIN()+": Spot t0 :"+ str(cout_investment) + " Spot :" + str(investment.get_investment_asset().get_asset_price()))
-        #print("PnL de :"+ str(portfolio.get_ptf_PnL())+"\n")
-    return (investment_PnL, capital)
-investment_PnL, capital= strat_buy_and_hold(p1,0,263,1,data)
+    return ([jour for jour in range(start,Nb_Obs+start,periode)],value, capital)
+
+jours,value,capital= strat_buy_and_hold(p1,0,263,1,data)
 
 #PNL POTENTIEL PRNBLEME DE FRAIS
 
-def chart(Y1, Y2):
+def chart(jours,Y1, Y2):
     
 
     fig, ax = plt.subplots()
@@ -91,7 +88,7 @@ def chart(Y1, Y2):
     newax.spines['bottom'].set_position(('outward', 35))
     
     ax.plot(Y2, 'r-')
-    ax.set_xlabel('Red X-axis', color='red')
+    ax.set_xlabel('Red X Axis',color='red')
     ax.set_ylabel('Red Y-axis', color='red')
     
     
@@ -107,7 +104,7 @@ def chart(Y1, Y2):
 
 
 
-chart(investment_PnL, capital)
+chart(jours,capital,value)
 
 
 
