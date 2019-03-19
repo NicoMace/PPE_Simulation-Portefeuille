@@ -131,7 +131,18 @@ class Portfolio:
             value+= self.comp_ptf_line_price(index) 
             
         return value+self.__ptf_capital
-
+    
+    def comp_max_drawdown(self,m_PnL):
+        mdd = 0
+        peak = m_PnL[0]
+        for x in m_PnL:
+            if x > peak: 
+                peak = x
+            dd = (peak - x) / peak
+            if dd > mdd:
+                mdd = dd
+        self.__ptf_real_risk =  mdd
+        
 # METHODE BUY SELL ASSETS According to their index and Quanity
     def sell_ptf(self, index, investment_quantity):
         broker_fees= self.__ptf_broker.comp_broker_fees(investment_quantity,self.__ptf_list_investments[index].get_investment_asset().get_asset_price())

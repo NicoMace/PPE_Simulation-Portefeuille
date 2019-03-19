@@ -42,34 +42,37 @@ s1=Stock("NATIXIS_SPOT","€",6.95)
 s2=Stock("CAC_SPOT","P",5365.83)
 
 i1=Investment(s1,100,"07/02/2019",6.95)
-i2=Investment(s2,10,"07/02/2019",5365.83)
+i2=Investment(s2,1,"07/02/2019",5365.83)
 
 p1.add_ptf_investment(i1,data)
-#p1.add_ptf_investment(i2)
+p1.add_ptf_investment(i2,data)
 
 
 def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
 
     value=[]
     capital=[]
+    m_PnL=[]
+    for i in range(len(portfolio.get_ptf_list_investments())):
+        m_PnL.append([])
     
     
     for jour in range(start,Nb_Obs+start,periode):
-        #print("Jour " +str(jour))
-        for investment in portfolio.get_ptf_list_investments():
-            investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
 
-            
+        for investment in portfolio.get_ptf_list_investments():
+            print(portfolio.get_ptf_list_investments().index(investment))
+            investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
-        
             portfolio.comp_ptf_PnL()
             value.append(portfolio.comp_ptf_value())
             capital.append(portfolio.get_ptf_capital())
+            m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
+  #  portfolio.comp_max_drawdown(m_PnL)
         
-    return ([jour for jour in range(start,Nb_Obs+start,periode)],value, capital)
+    return ([jour for jour in range(start,Nb_Obs+start,periode)],value, capital, m_PnL)
 
-jours,value,capital= strat_buy_and_hold(p1,0,263,1,data)
+jours,value,capital,m_PnL= strat_buy_and_hold(p1,0,263,1,data)
 
 #PNL POTENTIEL PRNBLEME DE FRAIS
 
