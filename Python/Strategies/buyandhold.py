@@ -55,6 +55,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
     m_PnL=[]
     for i in range(len(portfolio.get_ptf_list_investments())):
         m_PnL.append([])
+    m_PnL.append([])
     
     
     for jour in range(start,Nb_Obs+start,periode):
@@ -68,7 +69,9 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
             value.append(portfolio.comp_ptf_value())
             capital.append(portfolio.get_ptf_capital())
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
-  #  portfolio.comp_max_drawdown(m_PnL)
+        portfolio.comp_ptf_PnL()
+        m_PnL[-1].append(portfolio.get_ptf_PnL())
+    portfolio.comp_max_drawdown(m_PnL[-1])
         
     return ([jour for jour in range(start,Nb_Obs+start,periode)],value, capital, m_PnL)
 
