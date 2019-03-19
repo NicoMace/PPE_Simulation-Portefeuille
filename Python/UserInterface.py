@@ -50,6 +50,10 @@ DataAsset = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 
 
+### Date management.
+
+
+
 ### Create assets basket.
 # Total time.
 T = 1
@@ -58,7 +62,7 @@ N = 12
 # Time step size
 dt = T/N
 # Number of realizations to generate.
-NumberOfRealizations = 100
+NumberOfRealizations = 10
 # Annual yield.
 AnnualYield=0.02
 # Create an empty array to store the realizations.
@@ -92,16 +96,35 @@ for i in range(len(Names)):
 Investments = []
 for i in range(len(Assets)):   
     # Asset quantity.
-    AssetQuantity = 0   
+    AssetQuantity = 10
     # Investments.
     Investments += [Investment(Assets[i], AssetQuantity, Start, Price[i])]    #Revoir DataAsset
 # Add investments in portfolio.
 Portfolio.set_ptf_list_investments(Investments)
     
 
-### Buy and Hold plot.
-Jours,Value,Capital = strat_buy_and_hold(Portfolio,0,N,1,Data)
+### Buy and Hold compute.
+Jours, H_Value, H_Capital = strat_buy_and_hold(Portfolio,0,N,1,Data)
 
+### Data shaping.
+if os.path.isfile('data.txt')==True:
+    os.remove('data.txt')
+    
+fichier = open('data.txt','w')
+
+fichier.write('Date, Value, Capital')
+fichier.write('\n')
+
+for i in range(len(Jours)):
+    fichier.write(str(Jours[i])+ ', ')
+    fichier.write(str(H_Value[i])+ ', ')
+    fichier.write(str(H_Capital[i])+ ', ')
+    fichier.write('\n')
+
+fichier.close()
+
+
+### Display.
 for k in range(NumberOfRealizations):
     plot([i for i in range(len(PnL))], PnL)
 xlabel('t', fontsize=16)
