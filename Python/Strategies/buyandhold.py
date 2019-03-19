@@ -60,7 +60,7 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
     for jour in range(start,Nb_Obs+start,periode):
 
         for investment in portfolio.get_ptf_list_investments():
-            print(portfolio.get_ptf_list_investments().index(investment))
+            #print(portfolio.get_ptf_list_investments().index(investment))
             investment.set_investment_cost(data.iloc[start][investment.get_investment_asset().get_asset_ISIN()])
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
