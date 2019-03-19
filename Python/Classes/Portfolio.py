@@ -70,7 +70,7 @@ class Portfolio:
       self.__ptf_broker= ptf_broker
     
     def set_ptf_list_investments(self,ptf_list_investments):
-      self.__ptf_list_investments= [ptf_list_investments]
+      self.__ptf_list_investments= ptf_list_investments
     
     def set_ptf_expected_return(self,ptf_expected_return):
       self.__ptf_expected_return = ptf_expected_return
