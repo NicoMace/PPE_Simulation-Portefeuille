@@ -23,6 +23,7 @@ import pandas as pd
 from pylab import plot, show, grid, xlabel, ylabel
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
+from Strategies.buyandhold import chart
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -104,7 +105,7 @@ Portfolio.set_ptf_list_investments(Investments)
     
 
 ### Buy and Hold compute.
-Jours, H_Value, H_Capital = strat_buy_and_hold(Portfolio,0,N,1,Data)
+Jours, H_Value, H_Capital, H_PnL = strat_buy_and_hold(Portfolio,0,N-1,1,Data)
 
 ### Data shaping.
 if os.path.isfile('data.txt')==True:
@@ -125,9 +126,4 @@ fichier.close()
 
 
 ### Display.
-for k in range(NumberOfRealizations):
-    plot([i for i in range(len(PnL))], PnL)
-xlabel('t', fontsize=16)
-ylabel('x', fontsize=16)
-grid(True)
-show()
+chart(Jours, H_Value, H_Capital)
