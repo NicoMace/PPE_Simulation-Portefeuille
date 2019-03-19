@@ -35,13 +35,17 @@ Capital = 10000
 # Broker.
 BrokerName = "BoursoramaDecouverte"
 # Start date.
-Date = "7/02/2019"
+Start = "7/02/2019"
 # End date.
-
+End = "27/02/2019"
 # Expected return.
 Return = 0.30
 # Expected risk.
 Risk = 0.15
+# Historical prices from stocks.
+DataAsset = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
+# Broker fees.
+DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 
 
 ### Create assets basket.
@@ -62,35 +66,41 @@ x[:, 0] = 100
 # Black Scholes compute.
 blacksholes.comp_price_model_bs(x[:, 0], N,NumberOfRealizations,T,AnnualYield,out=x[:,1:])
 # Names.
-Name = ["Stock"+str(i+1) for i in range(NumberOfRealizations)]
+Names = ["Stock"+str(i+1) for i in range(NumberOfRealizations)]
 # Create data frame.
-Data = pd.DataFrame(np.array(x.transpose()), columns=Name)
+Data = pd.DataFrame(np.array(x.transpose()), columns=Names)
 # Initials Assets Prices.
 Price = [i for i in x[:,0]]
 # Assets currencys.
-Currency = ["€" for i in range(NumberOfRealizations)]
-# Create the stock.
-Stock = Stock(Name, Price, Currency)
+Currencies = ["€" for i in range(NumberOfRealizations)]
 
 
-### Create a portfolio.
-# Fees.
-Fees = (0,500,1.99,0,501,10**10,0,0.006)
-# Portfolio compute.
-Portfolio = Portfolio(Broker(BrokerName,Fees), Return, Risk,Capital)
+### Create portfolio.
+# Create Broker.
+Broker = Broker(BrokerName, DataBroker)     #Revoir DataBroker
+# Create Portfolio.
+Portfolio = Portfolio(Broker, Return, Risk, Capital)
+# Create Assets.
+Assets = []
+for i in range(len(Names)):
+    AssetName = Names[i]
+    Currency = Currencies[i]
+    Assets += [Stock(AssetName, Currency)]
+# Create Investments.
+Investments = []
+for i in Assets:   
+    # Asset quantity.
+    AssetQuantity = 0   
+    # Investments.
+    Investments += [Investment(i, AssetQuantity, Start, DataAsset)]    #Revoir DataAsset
+# Add investments in portfolio.
+for i in range(len(Investments)):
+    Portfolio.add_ptf_investment(Investments[i],Data)
 
-
-### Add the investment to the portfolio.
-# Number.
-Number = 10
-# Price.
-Price = 6.95
-# Adding.
-Portfolio.add_ptf_investment(Investment(Stock,Number,Date,Price))
-
+Portfolio.__repr__()
 
 ### Buy and Hold plot.
-PnL = strat_buy_and_hold(Portfolio,0,N,1,Data)
+PnL = strat_buy_and_hold(Portfolio,0,N,dt,Data)
 
 for k in range(NumberOfRealizations):
     plot([i for i in range(len(PnL))], PnL)
