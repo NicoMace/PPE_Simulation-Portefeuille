@@ -43,6 +43,8 @@ Return = 0.30
 # Expected risk.
 Risk = 0.15
 # Historical prices from stocks.
+HistoricalData = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
+# Computed prices from Black-Sholes.
 DataAsset = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 # Broker fees.
 DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
@@ -85,22 +87,20 @@ Assets = []
 for i in range(len(Names)):
     AssetName = Names[i]
     Currency = Currencies[i]
-    Assets += [Stock(AssetName, Currency)]
+    Assets += [Stock(AssetName, Currency,Price[i])]
 # Create Investments.
 Investments = []
-for i in Assets:   
+for i in range(len(Assets)):   
     # Asset quantity.
     AssetQuantity = 0   
     # Investments.
-    Investments += [Investment(i, AssetQuantity, Start, DataAsset)]    #Revoir DataAsset
+    Investments += [Investment(Assets[i], AssetQuantity, Start, Price[i])]    #Revoir DataAsset
 # Add investments in portfolio.
-for i in range(len(Investments)):
-    Portfolio.add_ptf_investment(Investments[i],Data)
-
-Portfolio.__repr__()
+Portfolio.set_ptf_list_investments(Investments)
+    
 
 ### Buy and Hold plot.
-PnL = strat_buy_and_hold(Portfolio,0,N,dt,Data)
+Jours,Value,Capital = strat_buy_and_hold(Portfolio,0,N,1,Data)
 
 for k in range(NumberOfRealizations):
     plot([i for i in range(len(PnL))], PnL)
