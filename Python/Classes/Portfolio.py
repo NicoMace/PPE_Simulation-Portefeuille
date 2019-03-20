@@ -125,7 +125,7 @@ class Portfolio:
     def comp_ptf_PnL(self):
         PnL=0
         for index in range(len(self.__ptf_list_investments)):
-            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index)- 2*comp_ptf_line_broker_fees(index)
+            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index)- 2*self.comp_ptf_line_broker_fees(index)
         self.__ptf_PnL= PnL
     
     def comp_ptf_value(self):
