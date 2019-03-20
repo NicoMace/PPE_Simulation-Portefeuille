@@ -95,17 +95,17 @@ class Portfolio:
       
     def add_ptf_investment(self,ptf_investment,data):
         if ptf_investment.get_investment_asset().get_asset_price() != None:
-            if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
+            if ptf_investment.comp_investment_price(self.__ptf_broker)+ptf_investment.comp_investment_broker_fees(self.__ptf_broker)< self.__ptf_capital:
                 self.__ptf_list_investments.append(ptf_investment)
-                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
+                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)-ptf_investment.comp_investment_broker_fees(self.__ptf_broker)
                 print(True)
             else:
                 print(False)
         elif ptf_investment.get_investment_asset().get_asset_price() == None:
             ptf_investment.get_investment_asset().set_asset_price(data.iloc[0][ptf_investment.get_investment_asset().get_asset_ISIN()])
-            if ptf_investment.comp_investment_price(self.__ptf_broker)< self.__ptf_capital:
+            if ptf_investment.comp_investment_price(self.__ptf_broker)+ptf_investment.comp_investment_broker_fees(self.__ptf_broker)< self.__ptf_capital:
                 self.__ptf_list_investments.append(ptf_investment)
-                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)
+                self.__ptf_capital=self.__ptf_capital-ptf_investment.comp_investment_cost(self.__ptf_broker)-ptf_investment.comp_investment_broker_fees(self.__ptf_broker)
                 print(True)
             else:
                 print(False)
