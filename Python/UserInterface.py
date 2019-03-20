@@ -83,7 +83,7 @@ Currencies = ["€" for i in range(NumberOfRealizations)]
 
 ### Create portfolio.
 # Create Broker.
-Broker =Broker(BrokerName,(0,500,1.99,0,501,10**10,0,0.006))     #Revoir DataBroker
+Broker =Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBroker
 # Create Portfolio.
 Portfolio = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
