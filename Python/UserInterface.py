@@ -20,7 +20,6 @@ os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 ### Importations.
 import numpy as np
 import pandas as pd
-from pylab import plot, show, grid, xlabel, ylabel
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
 from Strategies.buyandhold import chart
@@ -45,8 +44,6 @@ Return = 0.30
 Risk = 0.15
 # Historical prices from stocks.
 HistoricalData = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
-# Computed prices from Black-Sholes.
-DataAsset = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 # Broker fees.
 DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 
@@ -69,7 +66,7 @@ AnnualYield=0.02
 # Create an empty array to store the realizations.
 x = np.empty((NumberOfRealizations,N+1))
 # Initial values of x2.
-x[:, 0] = 100
+x[:, 0] = 100.00
 # Black Scholes compute.
 blacksholes.comp_price_model_bs(x[:, 0], N,NumberOfRealizations,T,AnnualYield,out=x[:,1:])
 # Names.
@@ -84,7 +81,7 @@ Currencies = ["€" for i in range(NumberOfRealizations)]
 
 ### Create portfolio.
 # Create Broker.
-Broker = Broker(BrokerName, DataBroker)     #Revoir DataBroker
+Broker =Broker(BrokerName,(0,500,1.99,0,501,10**10,0,0.006))     #Revoir DataBroker
 # Create Portfolio.
 Portfolio = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
@@ -105,7 +102,7 @@ Portfolio.set_ptf_list_investments(Investments)
     
 
 ### Buy and Hold compute.
-Jours, H_Value, H_Capital, H_PnL = strat_buy_and_hold(Portfolio,0,N-1,1,Data)
+Jours, H_Value, H_Capital, H_PnL = strat_buy_and_hold(Portfolio,0,N,1,Data)
 
 ### Data shaping.
 if os.path.isfile('data.txt')==True:
@@ -113,17 +110,22 @@ if os.path.isfile('data.txt')==True:
     
 fichier = open('data.txt','w')
 
-fichier.write('Date, Value, Capital')
+fichier.write('Date, Value, Capital, PnL')
 fichier.write('\n')
 
 for i in range(len(Jours)):
     fichier.write(str(Jours[i])+ ', ')
     fichier.write(str(H_Value[i])+ ', ')
     fichier.write(str(H_Capital[i])+ ', ')
+    fichier.write(str(H_PnL[-1][i])+ ', ')
     fichier.write('\n')
 
 fichier.close()
 
 
 ### Display.
-chart(Jours, H_Value, H_Capital)
+
+
+
+
+
