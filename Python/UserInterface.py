@@ -25,7 +25,7 @@ from pylab import plot, show, grid, xlabel, ylabel
 # Particulars imports.
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
-from Strategies.Exposition constante import strat_EC1
+from Strategies.ExpositionConstante import strat_EC1
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -125,9 +125,9 @@ fichier.write('\n')
 
 for i in range(len(Jours)):
     fichier.write(str(Jours[i])+ ', ')
-    fichier.write(str(H_Value[i])+ ', ')
-    fichier.write(str(H_Capital[i])+ ', ')
-    fichier.write(str(H_PnL[-1][i])+ ', ')
+    fichier.write(str(H_Value_BnH[i])+ ', ')
+    fichier.write(str(H_Capital_BnH[i])+ ', ')
+    fichier.write(str(H_PnL_BnH[-1][i])+ ', ')
     fichier.write('\n')
 
 fichier.close()
@@ -136,14 +136,14 @@ fichier.close()
 ### Display.
 # Investments PnL.
 for k in range(NumberOfRealizations-1):
-    plot(H_PnL[k])
+    plot(H_PnL_BnH[k])
 xlabel('t', fontsize=16)
 ylabel('x', fontsize=16)
 grid(True)
 show()
 
 # Portfolio PnL.
-plot(H_PnL[-1])
+plot(H_PnL_BnH[-1])
 xlabel('t', fontsize=16)
 ylabel('x', fontsize=16)
 grid(True)
