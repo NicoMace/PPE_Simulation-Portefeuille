@@ -25,6 +25,7 @@ from pylab import plot, show, grid, xlabel, ylabel
 # Particulars imports.
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
+from Strategies.Exposition constante import strat_EC1
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -106,7 +107,12 @@ for i in range(len(Investments)):
 
 
 ### Buy and Hold compute.
-Jours, H_Value, H_Capital, H_PnL = strat_buy_and_hold(Portfolio,0,N,1,Data)
+Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio,0,N,1,Data)
+
+
+### Exposition constante compute.
+Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC1(Portfolio,0,N,1,Data)
+
 
 ### Data shaping.
 if os.path.isfile('data.txt')==True:

@@ -7,8 +7,8 @@ Created on Tue Mar  5 08:27:45 2019
 """
 #P######################################## PATH
 import os
-os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
@@ -98,7 +98,7 @@ def strat_EC_1(treshold, portfolio, index, start, Nb_Obs, periode):
         upper_qty=lower_qty+1
         #print(investment.get_investment_quantity())
         
-        if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())>abs(m_PnL[-1]):
+        if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())>15:
         
             if investment.get_investment_asset().comp_asset_cost(lower_qty,b1)<investment.get_investment_asset().comp_asset_cost(upper_qty,b1):
                 if lower_qty-investment.get_investment_quantity()<0:
@@ -133,7 +133,7 @@ def strat_EC_1(treshold, portfolio, index, start, Nb_Obs, periode):
 
     
 
-m_PnL, value=strat_EC(300, p1,0,0,263,1)
+m_PnL, value=strat_EC_1(300, p1,0,0,263,1)
 
 
 print(np.mean(m_PnL))
