@@ -5,6 +5,15 @@ Created on Tue Mar  5 12:45:01 2019
 @author: Pierre
 """
 
+"""
+Pierre : Transmission des données de sorties
+Val : lecture BDD
+Mithu : IA
+
+
+"""
+
+
 ### Path.
 import os
 #BDD
@@ -111,8 +120,14 @@ Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio,0,N,
 
 
 ### Exposition constante compute.
-H_Value_CE, H_PnL_CE = strat_EC_1(1000,Portfolio,0, 0,N,1, Data)
-
+out = []
+H_Value_CE = []
+H_PnL_CE = []
+for i in range(len(Portfolio.get_ptf_list_investments())):
+    out += [list(strat_EC_1(1000,Portfolio,i, 0,N,1, Data))]
+for i in range(len(Portfolio.get_ptf_list_investments())):
+    H_Value_CE += [out[i][1]]
+    H_PnL_CE += [out[i][0]]
 
 ### Data shaping.
 # Output Buy and Hold.
@@ -141,7 +156,7 @@ Out_CE = open('Out_CE.txt','w')
 Out_CE.write('Value, PnL')
 Out_CE.write('\n')
 
-for i in range(len(Jours)):
+for i in range(len(H_Value_CE)):
     Out_CE.write(str(H_Value_CE[i])+ ', ')
     Out_CE.write(str(H_PnL_CE[-1][i]))
     Out_CE.write('\n')
