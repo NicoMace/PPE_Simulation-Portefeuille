@@ -47,11 +47,11 @@ def strat_buy_and_hold(portfolio,start,Nb_Obs, periode,data):
             prix_actif= data.iloc[jour][investment.get_investment_asset().get_asset_ISIN()]
             investment.get_investment_asset().set_asset_price(prix_actif)
             portfolio.comp_ptf_PnL()
-            value.append(portfolio.comp_ptf_value())
-            capital.append(portfolio.get_ptf_capital())
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
         portfolio.comp_ptf_PnL()
+        capital.append(portfolio.get_ptf_capital())
         m_PnL[-1].append(portfolio.get_ptf_PnL())
+        value.append(portfolio.comp_ptf_value())
     portfolio.comp_max_drawdown(m_PnL[-1])
         
     return ([jour for jour in range(start,Nb_Obs+start,periode)],value, capital, m_PnL)

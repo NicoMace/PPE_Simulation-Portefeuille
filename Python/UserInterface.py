@@ -100,8 +100,10 @@ for i in range(len(Assets)):
     # Investments.
     Investments += [Investment(Assets[i], AssetQuantity, Start, Price[i])]    #Revoir DataAsset
 # Add investments in portfolio.
-Portfolio.set_ptf_list_investments(Investments)
-    
+#Portfolio.set_ptf_list_investments(Investments)
+for i in range(len(Investments)):
+    Portfolio.add_ptf_investment(Investments[i], Data)
+
 
 ### Buy and Hold compute.
 Jours, H_Value, H_Capital, H_PnL = strat_buy_and_hold(Portfolio,0,N,1,Data)
@@ -126,14 +128,19 @@ fichier.close()
 
 
 ### Display.
-#t = np.linspace(0.0, N*dt, N+1)
-for k in range(NumberOfRealizations):
+# Investments PnL.
+for k in range(NumberOfRealizations-1):
     plot(H_PnL[k])
 xlabel('t', fontsize=16)
 ylabel('x', fontsize=16)
 grid(True)
 show()
 
-
+# Portfolio PnL.
+plot(H_PnL[-1])
+xlabel('t', fontsize=16)
+ylabel('x', fontsize=16)
+grid(True)
+show()
 
 
