@@ -21,8 +21,8 @@ import pandas as pd
 from Classes import *
 
 
-d_broker= pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
-data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
+d_broker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
+data = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 
 ##################### BODY ########################
 ### BROKER
@@ -46,7 +46,7 @@ p1.add_ptf_investment(i1,data)
 
 # FUNCTION INTERMEDIARE
 
-m_PnL, value=strat_EC_1(300, p1,0,0,263,1)
+m_PnL, value = strat_EC_1(300, p1,0,0,263,1)
 
 
 print(np.mean(m_PnL))

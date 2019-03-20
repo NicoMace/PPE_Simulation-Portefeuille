@@ -111,29 +111,45 @@ Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio,0,N,
 
 
 ### Exposition constante compute.
-Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC_1(Portfolio,0,N,1,Data)
+H_Value_CE, H_PnL_CE = strat_EC_1(1000,Portfolio,0, 0,N,1, Data)
 
 
 ### Data shaping.
-if os.path.isfile('data.txt')==True:
-    os.remove('data.txt')
+# Output Buy and Hold.
+if os.path.isfile('Out_BnH.txt')==True:
+    os.remove('Out_BnH.txt')
     
-fichier = open('data.txt','w')
+Out_BnH = open('Out_BnH.txt','w')
 
-fichier.write('Date, Value, Capital, PnL')
-fichier.write('\n')
+Out_BnH.write('Date, Value, Capital, PnL')
+Out_BnH.write('\n')
 
 for i in range(len(Jours)):
-    fichier.write(str(Jours[i])+ ', ')
-    fichier.write(str(H_Value_BnH[i])+ ', ')
-    fichier.write(str(H_Capital_BnH[i])+ ', ')
-    fichier.write(str(H_PnL_BnH[-1][i])+ ', ')
-    fichier.write('\n')
+    Out_BnH.write(str(Jours[i])+ ', ')
+    Out_BnH.write(str(H_Value_BnH[i])+ ', ')
+    Out_BnH.write(str(H_Capital_BnH[i])+ ', ')
+    Out_BnH.write(str(H_PnL_BnH[-1][i])+ ', ')
+    Out_BnH.write('\n')
 
-fichier.close()
+Out_BnH.close()
+# Output Constant Exposition.
+if os.path.isfile('Out_CE.txt')==True:
+    os.remove('Out_CE.txt')
+    
+Out_CE = open('Out_CE.txt','w')
+
+Out_CE.write('Value, PnL')
+Out_CE.write('\n')
+
+for i in range(len(Jours)):
+    Out_CE.write(str(H_Value_CE[i])+ ', ')
+    Out_CE.write(str(H_PnL_CE[-1][i]))
+    Out_CE.write('\n')
+
+Out_CE.close()
 
 
-### Display.
+### Buy and Hold Display.
 # Investments PnL.
 for k in range(NumberOfRealizations-1):
     plot(H_PnL_BnH[k])
@@ -150,3 +166,18 @@ grid(True)
 show()
 
 
+### Constant Exposition Display.
+# Investments PnL.
+for k in range(NumberOfRealizations-1):
+    plot(H_PnL_CE[k])
+xlabel('t', fontsize=16)
+ylabel('x', fontsize=16)
+grid(True)
+show()
+
+# Portfolio PnL.
+plot(H_PnL_CE[-1])
+xlabel('t', fontsize=16)
+ylabel('x', fontsize=16)
+grid(True)
+show()
