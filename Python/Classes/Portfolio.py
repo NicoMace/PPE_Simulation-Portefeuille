@@ -112,17 +112,20 @@ class Portfolio:
       
     def comp_ptf_line_cost(self,index):
         return self.__ptf_list_investments[index].get_investment_cost()*\
-    self.__ptf_list_investments[index].get_investment_quantity() + \
-    self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
+    self.__ptf_list_investments[index].get_investment_quantity() #+ \
+   # self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_line_price(self, index):
-        return self.__ptf_list_investments[index].comp_investment_price(self.__ptf_broker)-\
-        self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
+        return self.__ptf_list_investments[index].comp_investment_price(self.__ptf_broker)#-\
+       # self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
+    
+    def comp_ptf_line_broker_fees(self, index):
+        return self.__ptf_list_investments[index].comp_investment_broker_fees(self.__ptf_broker)
     
     def comp_ptf_PnL(self):
         PnL=0
         for index in range(len(self.__ptf_list_investments)):
-            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index) 
+            PnL=PnL + self.comp_ptf_line_price(index)-self.comp_ptf_line_cost(index)- 2*comp_ptf_line_broker_fees(index)
         self.__ptf_PnL= PnL
     
     def comp_ptf_value(self):
