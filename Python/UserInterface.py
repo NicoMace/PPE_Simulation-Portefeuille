@@ -18,11 +18,13 @@ os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 
 
 ### Importations.
+# Global imports.
 import numpy as np
 import pandas as pd
+from pylab import plot, show, grid, xlabel, ylabel
+# Particulars imports.
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
-from Strategies.buyandhold import chart
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -124,7 +126,13 @@ fichier.close()
 
 
 ### Display.
-
+#t = np.linspace(0.0, N*dt, N+1)
+for k in range(NumberOfRealizations):
+    plot(H_PnL[k])
+xlabel('t', fontsize=16)
+ylabel('x', fontsize=16)
+grid(True)
+show()
 
 
 
