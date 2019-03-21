@@ -91,7 +91,9 @@ Price = [i for i in x[:,0]]
 # Assets currencys.
 Currencies = ["€" for i in range(NumberOfRealizations)]
 # Add Dates.
-Data.insert(0, 'Date', HistoricalData.Date[0:N+1])
+#Data.insert(0, 'Date', HistoricalData.Date[HistoricalData.loc[HistoricalData['Date'] == Start].index[0]:HistoricalData.loc[HistoricalData['Date'] == End].index[0]])
+#Data.insert(0, 'Date', HistoricalData.Date[0:262-204])
+Data.insert(0, 'Date', HistoricalData.iloc[204:262,0])
 
 
 ### Create portfolio.

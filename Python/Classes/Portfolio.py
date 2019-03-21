@@ -135,10 +135,10 @@ class Portfolio:
             
         return value+self.__ptf_capital
     
-    def comp_max_drawdown(self,m_PnL):
-        mdd = 0
-        peak = m_PnL[0]
-        for x in m_PnL:
+    def comp_max_drawdown(self,m_Value):
+        mdd = 0.0
+        peak = m_Value[0]
+        for x in m_Value:
             if x > peak: 
                 peak = x
             dd = (peak - x) / peak
