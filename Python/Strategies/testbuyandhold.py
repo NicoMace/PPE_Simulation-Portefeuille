@@ -31,8 +31,8 @@ p1= Portfolio(b1, 0.30, 0.15,10000)
 s1=Stock("NATIXIS_SPOT","€",6.95)
 s2=Stock("CAC_SPOT","P",5365.83)
 
-i1=Investment(s1,100,"07/02/2019",6.95)
-i2=Investment(s2,1,"07/02/2019",5365.83)
+i1=Investment(s1,100,"09/10/2017",6.95)
+i2=Investment(s2,1,"09/10/2017",5365.83)
 
 p1.add_ptf_investment(i1,data)
 p1.add_ptf_investment(i2,data)

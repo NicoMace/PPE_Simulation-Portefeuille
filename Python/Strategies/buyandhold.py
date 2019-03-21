@@ -56,7 +56,7 @@ def strat_buy_and_hold(portfolio,b_date,e_date, periode,data):
         capital.append(portfolio.get_ptf_capital())
         m_PnL[-1].append(portfolio.get_ptf_PnL())
         value.append(portfolio.comp_ptf_value())
-    #portfolio.comp_max_drawdown(m_PnL[-1])
+    portfolio.comp_max_drawdown(m_PnL[-1])
         
     return ([data.loc[start:end].Date],value, capital, m_PnL)
 
