@@ -46,7 +46,7 @@ p1.add_ptf_investment(i1,data)
 
 # FUNCTION INTERMEDIARE
 
-jours,value,capital,m_PnL== strat_EC_1(300, p1,"09/10/2017","10/10/2018",1,data)
+jours,value,capital,m_PnL= strat_EC(1000, p1,"09/10/2017","10/10/2018",1,data)
 
 
 print(np.mean(m_PnL))

@@ -19,13 +19,13 @@ from Classes import *
 
 
         
-def strat_EC_1(treshold, portfolio,b_date,e_date, periode, data):
+def strat_EC(treshold, portfolio,b_date,e_date, periode, data):
     value=[]
     capital=[]
     m_PnL=[]
     for i in range(len(portfolio.get_ptf_list_investments())):
-        m_PnL.append([0])
-    m_PnL.append([0])
+        m_PnL.append([])
+    m_PnL.append([])
     start= data.loc[data["Date"] == b_date].index[0]
     end= data.loc[data["Date"] == e_date].index[0]   
     
@@ -37,7 +37,7 @@ def strat_EC_1(treshold, portfolio,b_date,e_date, periode, data):
             upper_qty=lower_qty+1
             #print(investment.get_investment_quantity())
             
-            if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())<10:
+            if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())>10:
             
                 if investment.get_investment_asset().comp_asset_cost(lower_qty,portfolio.get_ptf_broker())<investment.get_investment_asset().comp_asset_cost(upper_qty,portfolio.get_ptf_broker()):
                     if lower_qty-investment.get_investment_quantity()<0:
@@ -55,6 +55,7 @@ def strat_EC_1(treshold, portfolio,b_date,e_date, periode, data):
                     
                     elif upper_qty-investment.get_investment_quantity()>0:
                         portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),abs(upper_qty-investment.get_investment_quantity()))
+            
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
         portfolio.comp_ptf_PnL()
         capital.append(portfolio.get_ptf_capital())

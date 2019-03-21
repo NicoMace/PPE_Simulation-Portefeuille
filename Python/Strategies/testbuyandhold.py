@@ -39,7 +39,7 @@ p1.add_ptf_investment(i2,data)
 
 
 
-jours,value,capital,m_PnL= strat_buy_and_hold(p1,"09/10/2017","18/10/2017",1,data)
+jours,value,capital,m_PnL= strat_buy_and_hold(p1,"09/10/2017","10/10/2018",1,data)
 
 #PNL POTENTIEL PRNBLEME DE FRAIS
 
