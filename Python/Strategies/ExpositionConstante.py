@@ -16,10 +16,10 @@ os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
 ######################################### INISTIALISATION ######################@
 from Classes import *
 
-
+#gamma= coeef multiplicateur 
 
         
-def strat_EC(treshold, portfolio,b_date,e_date, periode, data):
+def strat_EC(treshold, portfolio,b_date,e_date, periode,gamma ,data):
     value=[]
     capital=[]
     m_PnL=[]
@@ -37,7 +37,7 @@ def strat_EC(treshold, portfolio,b_date,e_date, periode, data):
             upper_qty=lower_qty+1
             #print(investment.get_investment_quantity())
             
-            if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())>10:
+            if investment.get_investment_asset().comp_asset_cost(abs(lower_qty-investment.get_investment_quantity()),portfolio.get_ptf_broker())>gamma*portfolio.get_ptf_broker().comp_broker_fees(lower_qty,investment.get_investment_asset().get_asset_price()):
             
                 if investment.get_investment_asset().comp_asset_cost(lower_qty,portfolio.get_ptf_broker())<investment.get_investment_asset().comp_asset_cost(upper_qty,portfolio.get_ptf_broker()):
                     if lower_qty-investment.get_investment_quantity()<0:
@@ -61,6 +61,7 @@ def strat_EC(treshold, portfolio,b_date,e_date, periode, data):
         capital.append(portfolio.get_ptf_capital())
         m_PnL[-1].append(portfolio.get_ptf_PnL())
         value.append(portfolio.comp_ptf_value())
+        portfolio.comp_max_drawdown(m_PnL[-1])
             #print("Investment Quantity :"+ str(investment.get_investment_quantity())+" Price night :"+ str(investment.comp_investment_price(b1)))
             #print("PnL :"+ str(p1.get_ptf_PnL())+"\n")
             
