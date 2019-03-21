@@ -39,7 +39,7 @@ p1.add_ptf_investment(i2,data)
 
 
 
-jours,value,capital,m_PnL= strat_buy_and_hold(p1,0,263,1,data)
+jours,value,capital,m_PnL= strat_buy_and_hold(p1,"09/10/2017","18/10/2017",1,data)
 
 #PNL POTENTIEL PRNBLEME DE FRAIS
 
@@ -57,7 +57,7 @@ def chart(jours,Y1, Y2):
     
     newax.spines['bottom'].set_position(('outward', 35))
     
-    ax.plot(Y2, 'r-')
+    ax.plot(Y2,'r-')
     ax.set_xlabel('Red X Axis',color='red')
     ax.set_ylabel('Red Y-axis', color='red')
     

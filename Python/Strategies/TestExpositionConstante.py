@@ -7,8 +7,8 @@ Created on Wed Mar 20 15:51:35 2019
 
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
@@ -46,7 +46,7 @@ p1.add_ptf_investment(i1,data)
 
 # FUNCTION INTERMEDIARE
 
-m_PnL, value = strat_EC_1(300, p1,0,0,263,1)
+m_PnL, value = strat_EC_1(300, p1,0,0,263,1,data)
 
 
 print(np.mean(m_PnL))
