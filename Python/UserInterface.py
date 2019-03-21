@@ -45,7 +45,7 @@ Capital = 10000
 # Broker.
 BrokerName = "BoursoramaDecouverte"
 # Start date.
-Start = "7/02/2019"
+Start = "07/02/2019"
 # End date.
 End = "27/02/2019"
 # Expected return.
@@ -116,7 +116,7 @@ for i in range(len(Investments)):
 
 
 ### Buy and Hold compute.
-Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,0,N,1,Data)
+Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH, Start, End, 1, Data)
 
 
 ### Exposition constante compute.
