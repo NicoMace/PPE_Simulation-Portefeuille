@@ -7,8 +7,8 @@ Created on Wed Mar 20 15:51:35 2019
 
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
@@ -46,7 +46,7 @@ p1.add_ptf_investment(i1,data)
 
 # FUNCTION INTERMEDIARE
 
-m_PnL, value = strat_EC_1(300, p1,0,0,263,1)
+jours,value,capital,m_PnL= strat_EC(1000,p1,"09/10/2017","10/10/2018",10,10,data)
 
 
 print(np.mean(m_PnL))
@@ -54,8 +54,9 @@ print(np.std(m_PnL))
 
 
 
-def chart(Y1, Y2):
-    
+def chart(jours,Y1, Y2):
+    #Y1 in green
+    #Y2 in red
 
     fig, ax = plt.subplots()
     fig.subplots_adjust(bottom=0.2, right=0.85)
@@ -68,18 +69,17 @@ def chart(Y1, Y2):
     
     newax.spines['bottom'].set_position(('outward', 35))
     
-    ax.plot(Y1, 'r-')
-    ax.set_xlabel('Red X1-axis', color='red')
-    ax.set_ylabel('Y1', color='red')
+    ax.plot(Y2,'r-')
+    ax.set_xlabel('Red X Axis',color='red')
+    ax.set_ylabel('Red Y-axis', color='red')
     
     
-    newax.plot(Y2, 'g-')
+    newax.plot(Y1, 'g-')
     
-    newax.set_xlabel('Green X1-axis', color='green')
-    newax.set_ylabel('Y2', color='green')
+    newax.set_xlabel('Green X-axis', color='green')
+    newax.set_ylabel('Green Y-axis', color='green')
     
-    print(" Moyenne :"+str(np.mean(m_PnL))+" Std :"+str(np.std(m_PnL)))
     
-
     plt.show()
-chart(m_PnL,value)
+
+chart(jours,capital,value)
