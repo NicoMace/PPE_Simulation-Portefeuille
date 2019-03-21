@@ -7,10 +7,8 @@ Created on Tue Mar  5 12:45:01 2019
 
 """
 Pierre : Transmission des données de sorties
-Val : lecture BDD
+Val : lecture BDD - envoie d'une fonction prenant le BrokerName et qui renvoie la ligne des frais du broker (on se débrouille ensuite)
 Mithu : IA
-
-
 """
 
 
@@ -95,7 +93,8 @@ Currencies = ["€" for i in range(NumberOfRealizations)]
 # Create Broker.
 Broker =Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBroker
 # Create Portfolio.
-Portfolio = Portfolio(Broker, Return, Risk, Capital)
+Portfolio_BnH = Portfolio(Broker, Return, Risk, Capital)
+Portfolio_CE = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
 Assets = []
 for i in range(len(Names)):
@@ -112,20 +111,21 @@ for i in range(len(Assets)):
 # Add investments in portfolio.
 #Portfolio.set_ptf_list_investments(Investments)
 for i in range(len(Investments)):
-    Portfolio.add_ptf_investment(Investments[i], Data)
+    Portfolio_BnH.add_ptf_investment(Investments[i], Data)
+    Portfolio_CE.add_ptf_investment(Investments[i], Data)
 
 
 ### Buy and Hold compute.
-Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio,0,N,1,Data)
+Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,0,N,1,Data)
 
 
 ### Exposition constante compute.
 out = []
 H_Value_CE = []
 H_PnL_CE = []
-for i in range(len(Portfolio.get_ptf_list_investments())):
-    out += [list(strat_EC_1(1000,Portfolio,i, 0,N,1, Data))]
-for i in range(len(Portfolio.get_ptf_list_investments())):
+for i in range(len(Portfolio_CE.get_ptf_list_investments())):
+    out += [list(strat_EC_1(1000,Portfolio_CE,i, 0,N,1, Data))]
+for i in range(len(Portfolio_CE.get_ptf_list_investments())):
     H_Value_CE += [out[i][1]]
     H_PnL_CE += [out[i][0]]
 
@@ -165,8 +165,16 @@ Out_CE.close()
 
 
 ### Buy and Hold Display.
+# Global parameters.
+print('\n' + 'ptf_broker: ' + str(Portfolio_BnH.get_ptf_broker()) + '\n'
+      'ptf_expected_return: ' + str(Portfolio_BnH.get_ptf_expected_return()) + '\n'
+      'ptf_expected_risk: ' + str(Portfolio_BnH.get_ptf_expected_risk()) + '\n'
+      'ptf_capital: ' + str(Portfolio_BnH.get_ptf_capital()) + '\n'
+      'ptf_PnL: ' + str(Portfolio_BnH.get_ptf_PnL()) + '\n'
+      'ptf_real_return: ' + str(Portfolio_BnH.get_ptf_real_return()) + '\n'
+      'ptf_real_risk:' + str(Portfolio_BnH.get_ptf_real_risk()) + '\n')
 # Investments PnL.
-for k in range(NumberOfRealizations-1):
+for k in range(len(H_PnL_BnH)-1):
     plot(H_PnL_BnH[k])
 xlabel('t', fontsize=16)
 ylabel('x', fontsize=16)
@@ -182,8 +190,16 @@ show()
 
 
 ### Constant Exposition Display.
+# Global parameters.
+print('\n' + 'ptf_broker: ' + str(Portfolio_CE.get_ptf_broker()) + '\n'
+      'ptf_expected_return: ' + str(Portfolio_CE.get_ptf_expected_return()) + '\n'
+      'ptf_expected_risk: ' + str(Portfolio_CE.get_ptf_expected_risk()) + '\n'
+      'ptf_capital: ' + str(Portfolio_CE.get_ptf_capital()) + '\n'
+      'ptf_PnL: ' + str(Portfolio_CE.get_ptf_PnL()) + '\n'
+      'ptf_real_return: ' + str(Portfolio_CE.get_ptf_real_return()) + '\n'
+      'ptf_real_risk:' + str(Portfolio_CE.get_ptf_real_risk()) + '\n')
 # Investments PnL.
-for k in range(NumberOfRealizations-1):
+for k in range(len(H_PnL_CE)-1):
     plot(H_PnL_CE[k])
 xlabel('t', fontsize=16)
 ylabel('x', fontsize=16)
