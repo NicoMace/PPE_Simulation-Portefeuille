@@ -9,8 +9,8 @@ Created on Wed Feb 13 18:09:35 2019
 """
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas

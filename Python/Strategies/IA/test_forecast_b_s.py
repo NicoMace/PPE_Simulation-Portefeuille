@@ -25,8 +25,8 @@ data= pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 ##################### BODY ########################
 
 ### BROKER
-b1= Broker("BoursoramaDecouverte",(0,500,1.99,0,501,10**10,0,0.006))
-b2= Broker("BoursoramaClassic", (0,5000,5.5,0,5001,10**10,0,0.0048))
+b1= Broker("BoursoramaDecouverte",(0,500,1.99,0,500,10**10,0,0.006))
+b2= Broker("BoursoramaClassic", (0,5000,5.5,0,5000,10**10,0,0.0048))
 
 #### NICOLAS
 start=0
@@ -43,7 +43,7 @@ p1.add_ptf_investment(i1,data)
 p1.add_ptf_investment(i2,data)
 #####
 
-jours,value,capital,m_PnL,model=strat_forecast(p1,"10/10/2017","10/10/2018",1,0.7,data, model)
+jours,value,capital,m_PnL,model=strat_forecast(p1,"09/10/2017","10/10/2018",1,0.7,data,model)
 
 ######
 

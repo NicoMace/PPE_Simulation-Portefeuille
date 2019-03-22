@@ -158,7 +158,7 @@ class Portfolio:
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()-investment_quantity)
             print(str(True)+ " sold :"+ str(investment_quantity))
         else:
-            print(False)
+            print("False"+" sell")
         
     def buy_ptf(self, index, investment_quantity):
         broker_fees= self.__ptf_broker.comp_broker_fees(investment_quantity,self.__ptf_list_investments[index].get_investment_asset().get_asset_price())
@@ -171,7 +171,7 @@ class Portfolio:
             self.__ptf_list_investments[index].set_investment_quantity(self.__ptf_list_investments[index].get_investment_quantity()+investment_quantity)
             print(str(True)+ " Bought :" +str(investment_quantity))
         else:
-            print(False)
+            print("False" + " buy")
         
        
         

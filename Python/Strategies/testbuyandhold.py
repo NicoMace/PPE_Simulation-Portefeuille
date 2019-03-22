@@ -4,8 +4,16 @@ Created on Wed Mar 20 14:02:31 2019
 
 @author: Pierre
 """
+#P######################################## PATH
+import os
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
+#os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
-import buyandhold
+
+######################################### INISTIALISATION ######################@
+#import buyandhold
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,11 +43,11 @@ i1=Investment(s1,100,"09/10/2017",6.95)
 i2=Investment(s2,1,"09/10/2017",5365.83)
 
 p1.add_ptf_investment(i1,data)
-p1.add_ptf_investment(i2,data)
+#p1.add_ptf_investment(i2,data)
 
 
 
-jours,value,capital,m_PnL= strat_buy_and_hold(p1,"09/10/2017","10/10/2018",1,data)
+jours,value,capital,m_PnL= strat_buy_and_hold(p1,"18/04/2018","10/10/2018",1,data)
 
 #PNL POTENTIEL PRNBLEME DE FRAIS
 

@@ -42,11 +42,11 @@ i1=Investment(s1,100,"07/02/2019",6.95)
 i2=Investment(s2,10,"07/02/2019",5365.83)
 
 p1.add_ptf_investment(i1,data)
-#p1.add_ptf_investment(i2)
+p1.add_ptf_investment(i2,data)
 
 # FUNCTION INTERMEDIARE
 
-jours,value,capital,m_PnL= strat_EC(1000,p1,"09/10/2017","10/10/2018",10,10,data)
+jours,value,capital,m_PnL= strat_EC(1000,p1,"09/10/2017","10/10/2018",1,10,data)
 
 
 print(np.mean(m_PnL))
@@ -83,3 +83,4 @@ def chart(jours,Y1, Y2):
     plt.show()
 
 chart(jours,capital,value)
+
