@@ -42,21 +42,21 @@ def train_model(data,asset_name):
 
 #model=train_model(data,"NATIXIS_SPOT")
 
-def forecast_next_value(data,jour,asset_name, model,periode):
+def forecast_next_value(data,jour,asset_name, model):
     #model = tf.keras.models.Sequential()
     #model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu,input_dim=10))
     #model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
     #model.add(tf.keras.layers.Dense(1, activation=tf.nn.relu))
     #model.load_weights(str(asset_name+"_my_model"+".h5"))
     
-    stock=data.iloc[jour-periode:jour][asset_name]
+    stock=data.iloc[jour-10:jour][asset_name]
     X_predict = np.array(stock).reshape((1, 10)) / 200
     out=model.predict(X_predict)*200
     return(out[0][0])
 
 #forecast_next_value(data, 70,"NATIXIS_SPOT",model,10)
 
-def strat_forecast(portfolio,b_date,e_date, periode,data):#PERIODE DE 10 car BATCH DE 10
+def strat_forecast(portfolio,b_date,e_date, periode,data,if_model=False):#PERIODE DE 10 car BATCH DE 10
     
     value=[]
     capital=[]
@@ -64,16 +64,20 @@ def strat_forecast(portfolio,b_date,e_date, periode,data):#PERIODE DE 10 car BAT
     for i in range(len(portfolio.get_ptf_list_investments())):
         m_PnL.append([])
     m_PnL.append([])
-    model=[]
     
-    for investment in portfolio.get_ptf_list_investments():
-        model.append(train_model(data,investment.get_investment_asset().get_asset_ISIN()))
+    if if_model==False:
+        model=[]
+        for investment in portfolio.get_ptf_list_investments():
+            model.append(train_model(data,investment.get_investment_asset().get_asset_ISIN()))
+    else:
+        model=if_model
+        
     
 
     start= data.loc[data["Date"] == b_date].index[0]
     end= data.loc[data["Date"] == e_date].index[0]
     
-    for jour in range(start+periode,end,periode):
+    for jour in range(start+10,end,periode):
         print("\nJour :" +str(jour))
 
         for investment in portfolio.get_ptf_list_investments():
@@ -83,13 +87,13 @@ def strat_forecast(portfolio,b_date,e_date, periode,data):#PERIODE DE 10 car BAT
             investment.get_investment_asset().set_asset_price(prix_actif)
             investment_quantity= investment.get_investment_quantity()
             
-            next_asset_price=forecast_next_value(data,jour,investment.get_investment_asset().get_asset_ISIN(), model[portfolio.get_ptf_list_investments().index(investment)], periode)
+            next_asset_price=forecast_next_value(data,jour,investment.get_investment_asset().get_asset_ISIN(), model[portfolio.get_ptf_list_investments().index(investment)])
             print(str(investment.get_investment_asset().get_asset_ISIN())+" : "+str(next_asset_price))
             if next_asset_price >prix_actif:
-                 portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),10)
+                 portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),100)
             
             elif next_asset_price < prix_actif and investment_quantity-10>0 and next_asset_price!=-0:
-                portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),10)
+                portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),100)
 
             portfolio.comp_ptf_PnL()
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
@@ -98,8 +102,8 @@ def strat_forecast(portfolio,b_date,e_date, periode,data):#PERIODE DE 10 car BAT
         m_PnL[-1].append(portfolio.get_ptf_PnL())
         value.append(portfolio.comp_ptf_value())
     portfolio.comp_max_drawdown(m_PnL[-1])
-        
-    return ([data.loc[start:end].Date],value, capital, m_PnL)
+    
+    return ([data.loc[start:end].Date],value, capital, m_PnL,model)
 
 
 
