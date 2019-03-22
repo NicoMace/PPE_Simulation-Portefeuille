@@ -132,7 +132,7 @@ Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,
 Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
 
 
-### Data shaping.
+### Data shaping for web.
 # Output Buy and Hold.
 if os.path.isfile('Out_BnH.txt')==True:
     os.remove('Out_BnH.txt')
