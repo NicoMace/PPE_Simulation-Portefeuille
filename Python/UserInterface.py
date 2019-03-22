@@ -32,7 +32,7 @@ from pylab import plot, show, grid, xlabel, ylabel
 # Particulars imports.
 from Modelisation import blacksholes
 from Strategies.buyandhold import strat_buy_and_hold
-from Strategies.ExpositionConstante import strat_EC_1
+from Strategies.ExpositionConstante import strat_EC
 from Classes.Portfolio import Portfolio
 from Classes.Stock import Stock
 from Classes.Broker import Broker
@@ -45,9 +45,9 @@ Capital = 10000
 # Broker.
 BrokerName = "BoursoramaDecouverte"
 # Start date.
-Start = "7/02/2019"
+Start = "20/07/2018"
 # End date.
-End = "27/02/2019"
+End = "10/10/2018"
 # Expected return.
 Return = 0.30
 # Expected risk.
@@ -58,15 +58,18 @@ HistoricalData = pd.read_csv("Data/d_historique.txt", header=0, delimiter="\t")
 DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 
 
-### Date management.
-
+### Specificals parameters.
+# Treshold.
+Treshold = 1000
+# Gamma.
+Gamma = 1
 
 
 ### Create assets basket.
 # Total time.
 T = 1
 # Number of steps.
-N = 12
+N = HistoricalData.loc[HistoricalData['Date'] == End].index[0] - HistoricalData.loc[HistoricalData['Date'] == Start].index[0]
 # Time step size
 dt = T/N
 # Number of realizations to generate.
@@ -87,6 +90,10 @@ Data = pd.DataFrame(np.array(x.transpose()), columns=Names)
 Price = [i for i in x[:,0]]
 # Assets currencys.
 Currencies = ["€" for i in range(NumberOfRealizations)]
+# Add Dates.
+#Data.insert(0, 'Date', HistoricalData.Date[HistoricalData.loc[HistoricalData['Date'] == Start].index[0]:HistoricalData.loc[HistoricalData['Date'] == End].index[0]])
+#Data.insert(0, 'Date', HistoricalData.Date[0:262-204])
+Data.insert(0, 'Date', HistoricalData.iloc[204:262,0])
 
 
 ### Create portfolio.
@@ -116,18 +123,12 @@ for i in range(len(Investments)):
 
 
 ### Buy and Hold compute.
-Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,0,N,1,Data)
+Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH, Start, End, 1, Data)
 
 
 ### Exposition constante compute.
-out = []
-H_Value_CE = []
-H_PnL_CE = []
-for i in range(len(Portfolio_CE.get_ptf_list_investments())):
-    out += [list(strat_EC_1(1000,Portfolio_CE,i, 0,N,1, Data))]
-for i in range(len(Portfolio_CE.get_ptf_list_investments())):
-    H_Value_CE += [out[i][1]]
-    H_PnL_CE += [out[i][0]]
+Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
+
 
 ### Data shaping.
 # Output Buy and Hold.

@@ -9,8 +9,8 @@ Created on Wed Feb 13 18:09:35 2019
 """
 #P######################################## PATH
 import os
-os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
@@ -56,7 +56,8 @@ def strat_buy_and_hold(portfolio,b_date,e_date, periode,data):
         capital.append(portfolio.get_ptf_capital())
         m_PnL[-1].append(portfolio.get_ptf_PnL())
         value.append(portfolio.comp_ptf_value())
-    portfolio.comp_max_drawdown(m_PnL[-1])
+    #portfolio.comp_max_drawdown(m_PnL[-1])
+    portfolio.comp_max_drawdown(value)
         
     return ([data.loc[start:end].Date],value, capital, m_PnL)
 
