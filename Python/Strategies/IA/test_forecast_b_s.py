@@ -43,12 +43,14 @@ p1.add_ptf_investment(i1,data)
 p1.add_ptf_investment(i2,data)
 #####
 
-jours,value,capital,m_PnL, model=strat_forecast(p1,"09/10/2017","10/10/2018",1,data,model)
+jours,value,capital,m_PnL,model=strat_forecast(p1,"10/10/2017","10/10/2018",1,0.7,data, model)
 
 ######
 
 
 plot(value, "r")
+#plot(data.NATIXIS_SPOT, "b")
+#plot(data.EURUSD_SPOT,"b")
 
 
 

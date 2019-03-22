@@ -56,7 +56,7 @@ def forecast_next_value(data,jour,asset_name, model):
 
 #forecast_next_value(data, 70,"NATIXIS_SPOT",model,10)
 
-def strat_forecast(portfolio,b_date,e_date, periode,data,if_model=False):#PERIODE DE 10 car BATCH DE 10
+def strat_forecast(portfolio,b_date,e_date, periode,quantity_percent,data,if_model=False):#PERIODE DE 10 car BATCH DE 10
     
     value=[]
     capital=[]
@@ -72,13 +72,12 @@ def strat_forecast(portfolio,b_date,e_date, periode,data,if_model=False):#PERIOD
     else:
         model=if_model
         
-    
 
     start= data.loc[data["Date"] == b_date].index[0]
     end= data.loc[data["Date"] == e_date].index[0]
     
-    for jour in range(start+10,end,periode):
-        print("\nJour :" +str(jour))
+    for jour in range(start+10,end+1,periode):
+        #print("\nJour :" +str(jour))
 
         for investment in portfolio.get_ptf_list_investments():
         
@@ -88,12 +87,12 @@ def strat_forecast(portfolio,b_date,e_date, periode,data,if_model=False):#PERIOD
             investment_quantity= investment.get_investment_quantity()
             
             next_asset_price=forecast_next_value(data,jour,investment.get_investment_asset().get_asset_ISIN(), model[portfolio.get_ptf_list_investments().index(investment)])
-            print(str(investment.get_investment_asset().get_asset_ISIN())+" : "+str(next_asset_price))
+            #print(str(investment.get_investment_asset().get_asset_ISIN())+" : "+str(next_asset_price))
             if next_asset_price >prix_actif:
-                 portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),100)
+                 portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent*investment_quantity))
             
-            elif next_asset_price < prix_actif and investment_quantity-10>0 and next_asset_price!=-0:
-                portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),100)
+            elif next_asset_price < prix_actif and investment_quantity-int(quantity_percent*investment_quantity)>0 and next_asset_price!=-0:
+                portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent*investment_quantity))
 
             portfolio.comp_ptf_PnL()
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
