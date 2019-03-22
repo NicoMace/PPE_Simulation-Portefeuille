@@ -62,7 +62,7 @@ DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 # Treshold.
 Treshold = 1000
 # Gamma.
-Gamma = 1
+Gamma = 10
 
 
 ### Create assets basket.
@@ -91,9 +91,11 @@ Price = [i for i in x[:,0]]
 # Assets currencys.
 Currencies = ["€" for i in range(NumberOfRealizations)]
 # Add Dates.
-#Data.insert(0, 'Date', HistoricalData.Date[HistoricalData.loc[HistoricalData['Date'] == Start].index[0]:HistoricalData.loc[HistoricalData['Date'] == End].index[0]])
-#Data.insert(0, 'Date', HistoricalData.Date[0:262-204])
-Data.insert(0, 'Date', HistoricalData.iloc[204:262,0])
+l = HistoricalData.loc[HistoricalData['Date'] == Start].index[0]
+c = HistoricalData.loc[HistoricalData['Date'] == End].index[0]
+Dates = HistoricalData.Date[l:c+1]
+Dates = Dates.reset_index(drop = True)
+Data.insert(0, 'Date', Dates)
 
 
 ### Create portfolio.
@@ -102,6 +104,7 @@ Broker =Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBro
 # Create Portfolio.
 Portfolio_BnH = Portfolio(Broker, Return, Risk, Capital)
 Portfolio_CE = Portfolio(Broker, Return, Risk, Capital)
+Portfolio_F = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
 Assets = []
 for i in range(len(Names)):
@@ -120,6 +123,7 @@ for i in range(len(Assets)):
 for i in range(len(Investments)):
     Portfolio_BnH.add_ptf_investment(Investments[i], Data)
     Portfolio_CE.add_ptf_investment(Investments[i], Data)
+    Portfolio_F.add_ptf_investment(Investments[i], Data)
 
 
 ### Buy and Hold compute.
@@ -130,7 +134,11 @@ Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,
 Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
 
 
-### Data shaping.
+### Forcasting compute.
+
+
+
+### Data shaping for web.
 # Output Buy and Hold.
 if os.path.isfile('Out_BnH.txt')==True:
     os.remove('Out_BnH.txt')
