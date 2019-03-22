@@ -62,7 +62,7 @@ DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 # Treshold.
 Treshold = 1000
 # Gamma.
-Gamma = 1
+Gamma = 10
 
 
 ### Create assets basket.
@@ -104,6 +104,7 @@ Broker =Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBro
 # Create Portfolio.
 Portfolio_BnH = Portfolio(Broker, Return, Risk, Capital)
 Portfolio_CE = Portfolio(Broker, Return, Risk, Capital)
+Portfolio_F = Portfolio(Broker, Return, Risk, Capital)
 # Create Assets.
 Assets = []
 for i in range(len(Names)):
@@ -122,6 +123,7 @@ for i in range(len(Assets)):
 for i in range(len(Investments)):
     Portfolio_BnH.add_ptf_investment(Investments[i], Data)
     Portfolio_CE.add_ptf_investment(Investments[i], Data)
+    Portfolio_F.add_ptf_investment(Investments[i], Data)
 
 
 ### Buy and Hold compute.
@@ -130,6 +132,10 @@ Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH,
 
 ### Exposition constante compute.
 Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
+
+
+### Forcasting compute.
+
 
 
 ### Data shaping for web.
