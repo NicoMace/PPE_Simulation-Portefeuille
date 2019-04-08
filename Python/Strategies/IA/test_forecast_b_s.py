@@ -36,14 +36,14 @@ p1= Portfolio(b1, 0.30, 0.15,10000)
 s1=Stock("NATIXIS_SPOT","€",6.95)
 s2=Stock("EURUSD_SPOT","P",1.181)
 
-i1=Investment(s1,100,"09/10/2017",6.95)
-i2=Investment(s2,100,"09/10/2017",1.181)
+i1=Investment(s1,100,"10/10/2017",6.95)
+i2=Investment(s2,100,"10/10/2017",1.181)
 
 p1.add_ptf_investment(i1,data)
-p1.add_ptf_investment(i2,data)
+#p1.add_ptf_investment(i2,data)
 #####
 
-jours,value,capital,m_PnL,model=strat_forecast(p1,"09/10/2017","10/10/2018",1,0.7,data,model)
+jours,value,capital,m_PnL,model=strat_forecast(p1,"10/10/2017","10/10/2018",1,0.4,data)
 
 ######
 

@@ -8,8 +8,8 @@ Created on Thu Mar 21 17:32:19 2019
 
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
@@ -20,6 +20,7 @@ from Classes.IA_Process import DataProcessing
 
 
 def create_model():
+
     pass
 
 def train_model(data,asset_name):
@@ -30,13 +31,16 @@ def train_model(data,asset_name):
     process.gen_train(10)
     X_train = process.X_train / 200
     Y_train = process.Y_train / 200
-    
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(1, activation=tf.nn.relu))
-    model.compile(optimizer="adam", loss="mean_squared_error")
+    model.compile(optimizer="adadelta", loss="mean_squared_error")
+    #model.train_on_batch(X_train,Y_train)
     model.fit(X_train, Y_train, epochs=100, verbose=0)
+    print(model.get_weights())
     #model.save_weights(str(asset_name+"_my_model"+".h5"))
     return model
 

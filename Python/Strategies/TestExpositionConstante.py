@@ -36,10 +36,10 @@ u1=User("Macé", "Nicolas")
 p1= Portfolio(b1, 0.30, 0.15,10000)
 
 s1=Stock("NATIXIS_SPOT","€")
-s2=Stock("CAC_SPOT","P",5894)
+s2=Stock("EURUSD_SPOT","P",5894)
 
 i1=Investment(s1,100,"07/02/2019",6.95)
-i2=Investment(s2,10,"07/02/2019",5365.83)
+i2=Investment(s2,100,"07/02/2019",1.174)
 
 p1.add_ptf_investment(i1,data)
 p1.add_ptf_investment(i2,data)
