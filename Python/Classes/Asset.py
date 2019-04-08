@@ -35,7 +35,6 @@ class Asset:
     def get_asset_ISIN(self):
         return self.__asset_ISIN
     
-
     
         
     def set_asset_price(self,asset_price):
