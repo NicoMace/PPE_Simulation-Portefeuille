@@ -100,7 +100,7 @@ Data.insert(0, 'Date', Dates)
 
 ### Create portfolio.
 # Create Broker.
-Broker =Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBroker
+Broker = Broker(BrokerName,(0,500,1.99,0,500,10**10,0,0.006))     #Revoir DataBroker
 # Create Portfolio.
 Portfolio_BnH = Portfolio(Broker, Return, Risk, Capital)
 Portfolio_CE = Portfolio(Broker, Return, Risk, Capital)
@@ -127,18 +127,24 @@ for i in range(len(Investments)):
 
 
 ### Buy and Hold compute.
-Jours, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH, Start, End, 1, Data)
+Jours_BnH, H_Value_BnH, H_Capital_BnH, H_PnL_BnH = strat_buy_and_hold(Portfolio_BnH, Start, End, 1, Data)
 
 
 ### Exposition constante compute.
-Jours, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
-
+Jours_CE, H_Value_CE, H_Capital_CE, H_PnL_CE = strat_EC(Treshold, Portfolio_CE, Start, End, 1, Gamma, Data)
+l_Jours_CE = Jours_CE[0].tolist()
 
 ### Forcasting compute.
 
 
 
 ### Data shaping for web.
+Jours = Jours_BnH + l_Jours_CE
+H_Value = H_Value_BnH + H_Value_CE
+H_Capital = H_Capital_BnH + H_Capital_CE
+H_PnL = H_PnL_BnH + H_PnL_CE
+OutPut = pd.DataFrame({'Date': Jours, 'Strategie': H_Value, 'Value': H_Value, 'Capital': H_Capital, 'PnL': H_PnL}, columns = ['Date', 'Strategie', 'Value', 'Capital', 'PnL'])
+'''
 # Output Buy and Hold.
 if os.path.isfile('Out_BnH.txt')==True:
     os.remove('Out_BnH.txt')
@@ -171,7 +177,7 @@ for i in range(len(H_Value_CE)):
     Out_CE.write('\n')
 
 Out_CE.close()
-
+'''
 
 ### Buy and Hold Display.
 # Global parameters.
