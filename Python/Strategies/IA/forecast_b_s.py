@@ -8,8 +8,8 @@ Created on Thu Mar 21 17:32:19 2019
 
 #P######################################## PATH
 import os
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    #Mithuran
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')    #Pierre
 #os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')    'Mithuran
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')          #Nicolas
 
@@ -20,7 +20,14 @@ from Classes.IA_Process import DataProcessing
 
 
 def create_model():
-    pass
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(1, activation=tf.nn.relu))
+    model.compile(optimizer="adam", loss="mean_squared_error")
+    #tf.keras.initializers.Constant(value=1)
+    #model.train_on_batch(X_train,Y_train)
+    return model
 
 def train_model(data,asset_name):
     
@@ -30,14 +37,9 @@ def train_model(data,asset_name):
     process.gen_train(10)
     X_train = process.X_train / 200
     Y_train = process.Y_train / 200
-    
-    model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
-    model.add(tf.keras.layers.Dense(100, activation=tf.nn.relu))
-    model.add(tf.keras.layers.Dense(1, activation=tf.nn.relu))
-    model.compile(optimizer="adam", loss="mean_squared_error")
+    model=create_model()
     model.fit(X_train, Y_train, epochs=100, verbose=0)
-    #model.save_weights(str(asset_name+"_my_model"+".h5"))
+    model.save_weights(str(asset_name+"_my_model"+".h5"))
     return model
 
 #model=train_model(data,"NATIXIS_SPOT")
@@ -56,7 +58,7 @@ def forecast_next_value(data,jour,asset_name, model):
 
 #forecast_next_value(data, 70,"NATIXIS_SPOT",model,10)
 
-def strat_forecast(portfolio,b_date,e_date, periode,quantity_percent,data,if_model=False):#PERIODE DE 10 car BATCH DE 10
+def strat_forecast(portfolio,b_date,e_date, periode,quantity_percent,gamma,data,if_model=False):#PERIODE DE 10 car BATCH DE 10
     
     value=[]
     capital=[]
@@ -88,13 +90,16 @@ def strat_forecast(portfolio,b_date,e_date, periode,quantity_percent,data,if_mod
             
             next_asset_price=forecast_next_value(data,jour,investment.get_investment_asset().get_asset_ISIN(), model[portfolio.get_ptf_list_investments().index(investment)])
             print(str(investment.get_investment_asset().get_asset_ISIN())+" : "+str(next_asset_price))
-            if next_asset_price >prix_actif:
-                 portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent*investment_quantity))
             
-            elif next_asset_price < prix_actif and investment_quantity-int(quantity_percent*investment_quantity)>0 and next_asset_price!=-0:
-
-                portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent*investment_quantity))
+            if investment.get_investment_asset().comp_asset_cost(abs(int(quantity_percent*investment_quantity)),portfolio.get_ptf_broker())>gamma:
+            
+                if next_asset_price >prix_actif:
+                     portfolio.buy_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent*investment_quantity))
                 
+                elif next_asset_price < prix_actif and investment_quantity-int(quantity_percent)>0 and next_asset_price!=-0:
+    
+                    portfolio.sell_ptf(portfolio.get_ptf_list_investments().index(investment),int(quantity_percent))
+                    
             portfolio.comp_ptf_PnL()
             m_PnL[portfolio.get_ptf_list_investments().index(investment)].append(investment.comp_investment_PnL(portfolio.get_ptf_broker()))
         portfolio.comp_ptf_PnL()

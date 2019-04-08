@@ -17,11 +17,11 @@ import os
 #BDD
 #os.chdir('/Server/PPE_GIT/Python')
 #Mithuran
-#os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')
+os.chdir('/Users/mithurangajendran/Documents/PPE_GIT/Python')
 #Nicolas
 #os.chdir('/Users/nmace/Documents/GitHub/PPE_GIT/Python')
 #Pierre
-os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
+#os.chdir('D:/Users/Pierre/Documents/8 - Scolarite/ECE/PPE/PPE_GIT/Python')
 
 
 ### Importations.
@@ -62,7 +62,7 @@ DataBroker = pd.read_csv("Data/Courtiers.txt",header=0, delimiter=" ")
 # Treshold.
 Treshold = 1000
 # Gamma.
-Gamma = 10
+Gamma = 100
 
 
 ### Create assets basket.
@@ -73,7 +73,7 @@ N = HistoricalData.loc[HistoricalData['Date'] == End].index[0] - HistoricalData.
 # Time step size
 dt = T/N
 # Number of realizations to generate.
-NumberOfRealizations = 10
+NumberOfRealizations = 1
 # Annual yield.
 AnnualYield=0.02
 # Create an empty array to store the realizations.
